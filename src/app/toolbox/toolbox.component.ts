@@ -1,9 +1,13 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import {
+  Component, OnInit, NgModule, ComponentFactoryResolver, ApplicationRef, Injector,
+  EmbeddedViewRef
+} from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {InputBoxComponent} from '../input-box/input-box.component';
 
 @NgModule({
-  imports: [NgbModule]
+  imports: [NgbModule],
+
 })
 @Component({
   selector: 'app-toolbox',
@@ -11,8 +15,12 @@ import {InputBoxComponent} from '../input-box/input-box.component';
   styleUrls: ['./toolbox.component.css']
 })
 export class ToolboxComponent implements OnInit {
-  constructor() {
-  }
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private appRef: ApplicationRef,
+    private injector: Injector
+  ) { }
+
 
   ngOnInit() {
 
@@ -21,7 +29,10 @@ export class ToolboxComponent implements OnInit {
 
 
   insertBox() {
-    document.getElementById('canvas').appendChild('<app-input-box></app-input-box>');
+    const componentRef = this.componentFactoryResolver.resolveComponentFactory(InputBoxComponent).create(this.injector);
+    this.appRef.attachView(componentRef.hostView);
+    const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+    document.getElementById('canvas').appendChild(domElem);
   }
 
 
