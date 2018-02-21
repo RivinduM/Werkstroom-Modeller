@@ -4,7 +4,9 @@ import {
 } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {InputBoxComponent} from '../input-box/input-box.component';
-
+import {MultiplicationComponent} from '../multiplication/multiplication.component';
+import {AdditionComponent} from '../addition/addition.component';
+import {SubtractionComponent} from '../subtraction/subtraction.component';
 
 @NgModule({
   imports: [NgbModule],
@@ -28,8 +30,8 @@ export class ToolboxComponent implements OnInit {
 
 
 
-  insertBox(x , y ) {
-    const componentRef = this.componentFactoryResolver.resolveComponentFactory(InputBoxComponent).create(this.injector);
+  insertComponent(component, x , y ) {
+    const componentRef = this.componentFactoryResolver.resolveComponentFactory(component).create(this.injector);
     this.appRef.attachView(componentRef.hostView);
     const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
     domElem.style.position = 'absolute';
@@ -54,8 +56,26 @@ export class ToolboxComponent implements OnInit {
     const data = ev.dataTransfer.getData('text');
     /*ev.target.appendChild(document.getElementById(data));*/
     /*//alert(data + ' dropped to the canvas');*/
-    if (data === 'inputBox') {
+    /*if (data === 'inputBox') {
       this.insertBox(ev.screenX, ev.screenY );
+    }*/
+    switch(data) {
+      case 'inputBox': {
+        this.insertComponent(InputBoxComponent, ev.screenX, ev.screenY );
+        break;
+      }
+      case 'times': {
+        this.insertComponent(MultiplicationComponent, ev.screenX, ev.screenY );
+        break;
+      }
+      case 'plus': {
+        this.insertComponent(AdditionComponent, ev.screenX, ev.screenY );
+        break;
+      }
+      case 'minus': {
+        this.insertComponent(SubtractionComponent, ev.screenX, ev.screenY );
+        break;
+      }
     }
 
   }
