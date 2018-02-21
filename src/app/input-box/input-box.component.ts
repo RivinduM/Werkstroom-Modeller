@@ -9,14 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InputBoxComponent implements OnInit {
 
+  cid = 1;
   constructor() {  }
 
   ngOnInit() {
-
   }
-
 
   moveElement(ev) {
-    alert(ev.sty);
+    ev.preventDefault();
+    const element = document.getElementById(ev.target.id);
+    /*alert(element.id);*/
+    element.style.position = 'absolute';
+    element.style.left = ev.screenX - 450 + 'px';
+    element.style.top = ev.screenY - 270 + 'px';
   }
+
 }
