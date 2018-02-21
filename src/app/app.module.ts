@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import {ToolboxComponent} from './toolbox/toolbox.component';
 
 import { InputBoxComponent } from './input-box/input-box.component';
+import {NgDraggableWidgetModule} from 'ngx-draggable-widget';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { InputBoxComponent } from './input-box/input-box.component';
     InputBoxComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NgDraggableWidgetModule
   ],
   entryComponents: [InputBoxComponent],
   providers: [],

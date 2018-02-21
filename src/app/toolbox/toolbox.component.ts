@@ -5,6 +5,7 @@ import {
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {InputBoxComponent} from '../input-box/input-box.component';
 
+
 @NgModule({
   imports: [NgbModule],
 
@@ -28,14 +29,16 @@ export class ToolboxComponent implements OnInit {
 
 
 
-  insertBox() {
+  insertBox(x , y) {
     const componentRef = this.componentFactoryResolver.resolveComponentFactory(InputBoxComponent).create(this.injector);
     this.appRef.attachView(componentRef.hostView);
     const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-    document.getElementById('canvas').appendChild(domElem);
+    domElem.style.position = 'absolute';
+    domElem.style.left = x - 180.25   + 'px';
+    domElem.style.top = y - 173 + 'px';
+    const canvas = document.getElementById('canvas');
+    canvas.appendChild(domElem);
   }
-
-
 
 
   allowDrop(ev) {
@@ -49,10 +52,15 @@ export class ToolboxComponent implements OnInit {
 
   drop(ev) {
     ev.preventDefault();
-    let data = ev.dataTransfer.getData('text');
+    const data = ev.dataTransfer.getData('text');
     /*ev.target.appendChild(document.getElementById(data));*/
-    alert(data);
-    this.insertBox();
+    //alert(data + ' dropped to the canvas');
+    if (data === 'inputBox') {
+      this.insertBox(ev.screenX, ev.screenY);
+    }
+
   }
+
+
 }
 
