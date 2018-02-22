@@ -54,11 +54,6 @@ export class ToolboxComponent implements OnInit {
   drop(ev) {
     ev.preventDefault();
     const data = ev.dataTransfer.getData('text');
-    /*ev.target.appendChild(document.getElementById(data));*/
-    /*//alert(data + ' dropped to the canvas');*/
-    /*if (data === 'inputBox') {
-      this.insertBox(ev.screenX, ev.screenY );
-    }*/
     switch(data) {
       case 'inputBox': {
         this.insertComponent(InputBoxComponent, ev.screenX, ev.screenY );
@@ -83,13 +78,14 @@ export class ToolboxComponent implements OnInit {
   remove(ev) {
     ev.preventDefault();
     const data = ev.dataTransfer.getData('text');
-    const element = document.getElementById(ev.target.id);
+    /*alert('Remove ' + data);*/
     const parent = document.getElementById('canvas');
-    const child = document.getElementById(element.id);
-    alert('remove component //yet to implement' );
+    const child = document.getElementById(data);
     parent.removeChild(child);
 
+
   }
+
 
 
 

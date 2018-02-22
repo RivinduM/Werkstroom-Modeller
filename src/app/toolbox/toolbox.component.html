@@ -16,12 +16,12 @@
         <a class="primary mouseOver" ><i class="fa fa-plus-circle"  draggable="true" (dragstart)="drag($event)" id="plus"></i></a>
         <a class="primary mouseOver" ><i class="fa fa-minus-circle "  draggable="true" (dragstart)="drag($event)" id="minus"></i></a>
 
-        <a class="primary mouseOver"><i class="fa fa-trash" (drop)="remove($event)" (dragover)="allowDrop($event)"  id="trash"></i></a>
+        <div (drop)="remove($event)" (dragover)="allowDrop($event)"><a class="primary"><i class="fa fa-trash"   id="trash"></i></a></div>
       </div>
 
     </div>
 
-    <div  class="bin col-md-10" style="position: relative; margin-left:10px;" (drop)="drop($event)" (dragover)="allowDrop($event)" id="canvas">
+    <div  class="bin col-md-10" style="position: relative; margin-left:10px;" (drop)="drop($event)" (dragover)="allowDrop($event)" id="canvas" >
 
     </div>
 
