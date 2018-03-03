@@ -3,31 +3,27 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import {ToolboxComponent} from './toolbox/toolbox.component';
+import {CanvasComponent} from './canvas/canvas.component';
 
 import { InputBoxComponent } from './input-box/input-box.component';
-import {NgDraggableWidgetModule} from 'ngx-draggable-widget';
-import { MultiplicationComponent } from './multiplication/multiplication.component';
-import { AdditionComponent } from './addition/addition.component';
-import { SubtractionComponent } from './subtraction/subtraction.component';
+import { InputCircleComponent } from './input-circle/input-circle.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToolboxComponent,
+    CanvasComponent,
     InputBoxComponent,
-    MultiplicationComponent,
-    AdditionComponent,
-    SubtractionComponent
+    InputCircleComponent
   ],
   imports: [
     BrowserModule,
-    NgDraggableWidgetModule
+    NgbModule,
   ],
-  entryComponents: [InputBoxComponent, MultiplicationComponent, AdditionComponent, SubtractionComponent],
+  entryComponents: [InputBoxComponent, InputCircleComponent],
   providers: [],
-  bootstrap: [AppComponent, ToolboxComponent],
+  bootstrap: [AppComponent, CanvasComponent],
   exports: [BrowserModule]
 })
 export class AppModule { }

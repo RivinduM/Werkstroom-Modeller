@@ -3,18 +3,16 @@ import { v4 as uuid } from 'uuid';
 import swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-input-box',
-  templateUrl: './input-box.component.html',
-  styleUrls: ['./input-box.component.css'],
-
+  selector: 'app-input-circle',
+  templateUrl: './input-circle.component.html',
+  styleUrls: ['./input-circle.component.css']
 })
-export class InputBoxComponent implements OnInit {
+export class InputCircleComponent implements OnInit {
   cid = uuid();
   showcntrl = 'showControls' + this.cid;
   cntrl = 'controls' + this.cid;
   title = '';
   body = '';
-
   constructor() {
     const swal = require('sweetalert2');
   }
@@ -42,14 +40,6 @@ export class InputBoxComponent implements OnInit {
       if (result.value) {
         this.title = result.value[0];
         this.body = result.value[1];
-        /*swal({
-          title: 'All done!',
-          html:
-          'Your answers: <pre>' +
-          JSON.stringify(result.value) +
-          '</pre>',
-          confirmButtonText: 'Lovely!'
-        });*/
       }
     });
 
@@ -59,8 +49,8 @@ export class InputBoxComponent implements OnInit {
     ev.preventDefault();
     const element = document.getElementById(this.cid);
     element.style.position = 'absolute';
-    element.style.left = ev.screenX - 465 + 'px';
-    element.style.top = ev.screenY - 274 + 'px';
+    element.style.left = ev.screenX - 418 + 'px';
+    element.style.top = ev.screenY - 228 + 'px';
   }
 
   setData(ev) {

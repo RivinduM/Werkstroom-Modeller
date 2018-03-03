@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div  class="card cardBorder cardBack" style="margin-left:10px;padding-top:10px;padding-bottom:10px;margin-right: 10px" >
+
+  <div class="row">
+
+    <div  class="toolBox-container">
+
+      <div class="icon-bar toolBox"  style="margin-left:25px">
+        <div >Toolbox</div>
+
+        <a class="primary mouseOver">
+          <div class="box" draggable="true" (dragstart)="drag($event)" id="boxModal" >
+            <div class="boxheader">Header</div>
+            <div class="boxbody">Body</div>
+          </div>
+          <!--<div  class="inputBox" draggable="true" (dragstart)="drag($event)" id="inputBox" ></div>-->
+        </a>
+
+        <a class="primary mouseOver">
+          <div class="box circle" draggable="true" (dragstart)="drag($event)" id="circleModal" >
+            <div class="boxheader">Header</div>
+            <div class="boxbody">Body</div>
+          </div>
+          <!--<div  class="inputBox" draggable="true" (dragstart)="drag($event)" id="inputBox" ></div>-->
+        </a>
+       <!-- <a class="primary mouseOver"><i class="fa fa-times-circle"  draggable="true" (dragstart)="drag($event)" id="times"></i></a>
+        <a class="primary mouseOver" ><i class="fa fa-plus-circle"  draggable="true" (dragstart)="drag($event)" id="plus"></i></a>
+        <a class="primary mouseOver" ><i class="fa fa-minus-circle "  draggable="true" (dragstart)="drag($event)" id="minus"></i></a>
+
+        <div (drop)="remove($event)" (dragover)="allowDrop($event)"><a class="primary"><i class="fa fa-trash"   id="trash"></i></a></div>-->
+      </div>
+
+    </div>
+    <div class="workspace col-md-10">
+    <div  class="bin" (drop)="drop($event)" (dragover)="allowDrop($event)" id="canvas" >
+
+     <!-- <div id="line"></div>-->
+
+    </div>
+    </div>
+
+  </div>
+
+</div>
+

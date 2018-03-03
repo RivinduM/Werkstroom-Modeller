@@ -3,7 +3,6 @@ body {margin:0}
 .icon-bar {
   width: 80px;
   background-color: #555;
-
 }
 
 .icon-bar a{
@@ -33,93 +32,46 @@ body {margin:0}
 }
 
 .mouseOver{
-  cursor: move;
+  cursor: copy;
 }
 .cardBorder{
   border-color: rgba(115, 170, 193, 0.72);
 }
 
+.workspace{
+  background-color: #e4ffea;
+  position: relative;
+  overflow: auto;
+  height: 388px;
+  width: 1135.88px;
+}
+
+
 .bin {
 @extend %content;
-  min-height: 150px;
-  min-width: 150px;
-  float: left;
-  border: 1px solid #010840;
-  padding: 20px;
+  left: 0px;
+  height: 4000px;
+  width: 10000px;
+  border: 1px solid #0000c1;
+  position: absolute;
   background-color: #e4ffea;
-  overflow: auto;
 
 
-  background-image: linear-gradient(rgba(0, 0, 193, 0.34) 1px, transparent 2px),
-  linear-gradient(90deg, rgba(0, 0, 193, 0.34) 2px, transparent 1px),
+  background-image: linear-gradient(rgba(0, 0, 193, 0.34) 1px,
+  transparent 2px),linear-gradient(90deg, rgba(0, 0, 193, 0.34) 2px, transparent 1px),
   linear-gradient(rgba(1, 8, 64, 0.3) 1px, transparent 1px),
   linear-gradient(90deg, rgba(1, 8, 64, 0.3) 1px, transparent 1px);
   background-size:90px 90px, 90px 90px, 15px 15px, 15px 15px;
-  background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px
+  background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px;
+
+
 }
 
-
-
-#div1,
-#div2 {
-  float: left;
-  width: 100px;
-  height: 35px;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid black;
-}
-
-.inputBox{
-  margin: auto;
-  width: 50px;
-  height: 50px;
-  border-radius: 6px;
-  border: 4px solid #044105;
-  padding: 10px;
-  text-align: center;
-  background: teal;
-  color: #c6f0ff;
-  font-weight: bold;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
 
 .toolBox{
   border: 2px solid black;
 }
 
-
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-  top: 100%;
-  left: 50%;
-  margin-left: -60px;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
 
 
 .widget-container {
@@ -140,4 +92,51 @@ input[type=number]::-webkit-outer-spin-button {
 .inputBox:active{
   height:40px;
   width: 40px;
+}
+/*
+#line{
+  width: 100px;
+  height: 10px;
+  border: solid thin red;
+  position: absolute;
+  background-color: red;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+*/
+
+.box {
+  text-align: center;
+  background: #b4ffe5;
+  margin: auto;
+  box-shadow: 1px 1px 2px #535353;
+  border: 4px #8ec0a1;
+  border-radius: 4px;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  /* limit size with min/max-width/height*/
+  min-height: 50px;
+  min-width: 50px;
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.boxheader {
+  background: #1d1d1d;
+  color: #619bb9;
+  font-weight: bold;
+  font-size: xx-small;
+}
+
+.boxbody {
+  color: #010840;
+  font-size: xx-small;
+  padding: 10px;
+}
+
+.circle{
+  border-radius: 100%;
 }
