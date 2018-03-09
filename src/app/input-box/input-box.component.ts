@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { v4 as uuid } from 'uuid';
+import {Component, OnInit, AfterContentInit, DoCheck} from '@angular/core';
+import {v4 as uuid} from 'uuid';
 import swal from 'sweetalert2';
+import {Globals} from '../globals'; ////////////
 
 @Component({
   selector: 'app-input-box',
@@ -14,8 +15,9 @@ export class InputBoxComponent implements OnInit {
   cntrl = 'controls' + this.cid;
   title = '';
   body = '';
+  list: any[] = this.globals.list;
 
-  constructor() {
+  constructor(private globals: Globals) {
     const swal = require('sweetalert2');
   }
 
@@ -50,9 +52,16 @@ export class InputBoxComponent implements OnInit {
           '</pre>',
           confirmButtonText: 'Lovely!'
         });*/
+        this.addToList();
       }
     });
 
+
+  }
+
+  addToList() {
+    const comp = {id: this.cid, type: 'Box', x: 250, y: 60, title: this.title, body: this.body, height: null, width: null, z: null};
+    this.list.push(comp);
   }
 
   moveElement(ev) {
@@ -61,6 +70,9 @@ export class InputBoxComponent implements OnInit {
     element.style.position = 'absolute';
     element.style.left = ev.screenX - 465 + 'px';
     element.style.top = ev.screenY - 274 + 'px';
+    const component = this.list.find(i => i.id === this.cid);
+    component.x = element.style.left;
+    component.y = element.style.top;
   }
 
   setData(ev) {
@@ -85,7 +97,6 @@ export class InputBoxComponent implements OnInit {
   }
 
 
-
   delete() {
     swal({
       title: 'Are you sure?',
@@ -97,6 +108,9 @@ export class InputBoxComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         document.getElementById(this.cid).remove();
+        const component = this.list.find(i => i.id === this.cid);
+        const index = this.list.indexOf(component);
+        this.list.splice(index, 1);
       }
     });
   }
@@ -106,7 +120,7 @@ export class InputBoxComponent implements OnInit {
     document.getElementById(this.showcntrl).style.display = 'block';
   }
 
-  edit(){
+  edit() {
     swal.setDefaults({
       input: 'text',
       confirmButtonText: 'Next &rarr;',
@@ -133,7 +147,18 @@ export class InputBoxComponent implements OnInit {
       if (result.value) {
         this.title = result.value[0];
         this.body = result.value[1];
+        const component = this.list.find(i => i.id === this.cid);
+        component.title = this.title;
+        component.body = this.body;
       }
     });
+  }
+
+  update(){
+    const element = document.getElementById(this.cid);
+    const component = this.list.find(i => i.id === this.cid);
+    component.height = element.style.height;
+    component.width = element.style.width;
+    component.z = element.style.zIndex;
   }
 }

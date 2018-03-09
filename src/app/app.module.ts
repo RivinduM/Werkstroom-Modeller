@@ -8,6 +8,7 @@ import {CanvasComponent} from './canvas/canvas.component';
 import { InputBoxComponent } from './input-box/input-box.component';
 import { InputCircleComponent } from './input-circle/input-circle.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {Globals} from './globals';
 
 
 @NgModule({
@@ -22,7 +23,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
   ],
   entryComponents: [InputBoxComponent, InputCircleComponent],
-  providers: [],
+  providers: [ Globals ],
   bootstrap: [AppComponent, CanvasComponent],
   exports: [BrowserModule]
 })
