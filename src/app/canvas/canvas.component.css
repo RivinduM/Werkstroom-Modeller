@@ -93,18 +93,7 @@ body {margin:0}
   height:40px;
   width: 40px;
 }
-/*
-#line{
-  width: 100px;
-  height: 10px;
-  border: solid thin red;
-  position: absolute;
-  background-color: red;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-}
-*/
+
 
 .box {
   text-align: center;
@@ -147,4 +136,19 @@ body {margin:0}
 
 .remove:hover{
   text-decoration: underline;
+}
+
+#line{
+  width: 100px;
+  height: 2px;
+  top: 100px;
+  left: 50px;
+  rotation-point: left;
+  transform: rotate(5deg);
+  border: solid thin red;
+  position: absolute;
+  background-color: red;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }

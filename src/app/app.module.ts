@@ -9,6 +9,7 @@ import { InputBoxComponent } from './input-box/input-box.component';
 import { InputCircleComponent } from './input-circle/input-circle.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {Globals} from './globals';
+import { LineComponent } from './line/line.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {Globals} from './globals';
     AppComponent,
     CanvasComponent,
     InputBoxComponent,
-    InputCircleComponent
+    InputCircleComponent,
+    LineComponent
   ],
   imports: [
     BrowserModule,
