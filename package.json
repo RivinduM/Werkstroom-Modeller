@@ -29,6 +29,7 @@
     "jquery": "^3.3.1",
     "ng2-dnd": "^5.0.2",
     "ngx-draggable-widget": "^1.0.7",
+    "ngx-scroll-event": "^1.0.8",
     "npm": "^5.7.1",
     "rxjs": "^5.5.6",
     "sweetalert": "^2.1.0",

@@ -28,7 +28,7 @@ body {margin:0}
   background-color: #4CAF50 !important;
 }
 .cardBack{
-  background-color: #718991;
+  background-color: rgb(132, 147, 219);
 }
 
 .mouseOver{
@@ -42,14 +42,14 @@ body {margin:0}
   background-color: #e4ffea;
   position: relative;
   overflow: auto;
-  height: 388px;
-  width: 1135.88px;
+  height:450px;
+  width: 1136px;
 }
 
 
 .bin {
 @extend %content;
-  left: 0px;
+  left:0px;
   height: 4000px;
   width: 10000px;
   border: 1px solid #0000c1;

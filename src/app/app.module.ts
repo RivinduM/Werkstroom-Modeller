@@ -24,7 +24,7 @@ import { LineComponent } from './line/line.component';
     BrowserModule,
     NgbModule,
   ],
-  entryComponents: [InputBoxComponent, InputCircleComponent],
+  entryComponents: [InputBoxComponent, InputCircleComponent, LineComponent],
   providers: [ Globals ],
   bootstrap: [AppComponent, CanvasComponent],
   exports: [BrowserModule]

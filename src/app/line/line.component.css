@@ -1,0 +1,14 @@
+.line{
+  /*width: 100px;*/
+  height: 4px;
+  /*top: 100px;
+  left: 50px;*/
+  rotation-point: left;
+  /*transform: rotate(5deg);*/
+  border: solid thin #1c0b6e;
+  position: absolute;
+  background-color: #1c0b6e;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}

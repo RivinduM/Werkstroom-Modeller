@@ -1,4 +1,6 @@
+<!--
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+-->
 
 <div  class="card cardBorder cardBack" style="margin-left:10px;padding-top:10px;padding-bottom:10px;margin-right: 10px" >
 
@@ -33,8 +35,9 @@
 
     </div>
     <div class="workspace col-md-10">
-    <div  class="bin" (drop)="drop($event)" (dragover)="allowDrop($event)" id="canvas">
+    <div  class="bin" (drop)="drop($event)" (dragover)="allowDrop($event)" id="canvas" (click)="showPos($event)" >
      <!-- <div id="line"></div>-->
+     <!-- <app-line></app-line>-->
 
     </div>
     </div>
@@ -53,5 +56,13 @@
     {{item.type}}  {{item.id}}  {{item.x}}  {{item.y}}  title: {{item.title}} body: {{item.body}} h {{item.height}} w {{item.width}} z {{item.z}}
     <span (click)="delete(item.id)" class="remove">Remove</span> x {{item.x}} y {{item.y}}
 
+  </li>
+</ul>
+
+<h6>Connectors</h6>
+<ul>
+  <li *ngFor="let connector of connectors">
+    <span (click)="connPos(connector.id)"> {{connector.id}}</span> {{connector.node1}} {{connector.node2}}
+    <span (click)="delete(connector.id)" class="remove">Remove</span><span (click)="setWidth(connector.id)">WidthSet</span>
   </li>
 </ul>
