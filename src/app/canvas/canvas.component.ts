@@ -1,7 +1,4 @@
-import {
-  Component, OnInit, NgModule, ComponentFactoryResolver, ApplicationRef, Injector,
-  EmbeddedViewRef, HostListener
-} from '@angular/core';
+import {ApplicationRef, Component, ComponentFactoryResolver, EmbeddedViewRef, Injector, NgModule, OnInit} from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {InputBoxComponent} from '../input-box/input-box.component';
 import {InputCircleComponent} from '../input-circle/input-circle.component';
@@ -19,13 +16,15 @@ import swal from 'sweetalert2';
 })
 
 export class CanvasComponent implements OnInit {
-  list: any[] = this.globals.list;
+  compList: any[] = this.globals.compList;
   connectors = this.globals.connectors;
+
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private appRef: ApplicationRef,
               private injector: Injector,
               private globals: Globals) {
   }
+
   ngOnInit() {
   }
 
@@ -40,8 +39,13 @@ export class CanvasComponent implements OnInit {
     this.appRef.attachView(componentRef.hostView);
     const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
     domElem.style.position = 'absolute';
-    domElem.style.left = x - 200 + 'px'; // 180.25   + 'px'
-    domElem.style.top = y - 290 + 'px'; // 173
+    const scroll = this.getScroll();
+    const workspaceX = document.getElementById('workspace').getBoundingClientRect().left;
+    const workspaceY = document.getElementById('workspace').getBoundingClientRect().top;
+    const xPos = x + scroll[0] - workspaceX - 41;
+    const yPos = y + scroll[1] - workspaceY - 105;
+    domElem.style.left = xPos + 'px';
+    domElem.style.top = yPos + 'px';
     const canvas = document.getElementById('canvas');
     canvas.appendChild(domElem);
   }
@@ -88,23 +92,6 @@ export class CanvasComponent implements OnInit {
 
   }
 
-  /*//////////////////no need*/
-  remove(ev) {
-    ev.preventDefault();
-    const data = ev.dataTransfer.getData('text');
-    const parent = document.getElementById('canvas');
-    const child = document.getElementById(data);
-    parent.removeChild(child);
-  }
-
-  /*///////////////////////////no need*/
-  showList() {
-    for (const entry of this.list) {
-      alert(entry.name);
-    }
-    /*alert(this.globals.list);*/
-  }
-
   /**
    * confirm delete of components and update list
    * @param element - element to be deleted
@@ -120,40 +107,46 @@ export class CanvasComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         document.getElementById(element).remove();
-        const component = this.list.find(i => i.id === element);
-        const index = this.list.indexOf(component);
-        this.list.splice(index, 1);
+        const component = this.compList.find(i => i.id === element);
+        const index = this.compList.indexOf(component);
+        this.compList.splice(index, 1);
       }
     });
+  }
+
+  /**
+   * @desc update compoent array details
+   */
+  updateList() {
+    for (const comp of this.compList) {
+      const component = document.getElementById(comp.id);
+      comp.x = component.getBoundingClientRect().left;
+      comp.y = component.getBoundingClientRect().top + 65;
+      comp.height = component.getBoundingClientRect().height;
+      comp.width = component.getBoundingClientRect().width;
+      comp.z = component.style.zIndex;
+    }
+  }
+
+  /**
+   * @desc get amount of scroll of the workspace and returns scroll amount [x,y]
+   * @returns {number[]}
+   */
+  getScroll() {
+    const elmnt = document.getElementById('workspace');
+    const x = elmnt.scrollLeft;
+    const y = elmnt.scrollTop;
+    return [x, y];
   }
 
   /*//////////////////////no need*/
   showPos(ev) {
     alert(ev.screenX + ' ' + ev.screenY);
-    alert(document.getElementById('canvas').scrollLeft);
-
+    /*alert(document.getElementById('canvas').scrollLeft);
+*/
     /*alert(document.getElementById('canvas').scrollWidth)
     alert(document.getElementById('canvas').scrollLeft)
     */
   }
-
-  /*//////////////////////no need*/
-  connPos(id) {
-    alert('left  ' + document.getElementById(id).getBoundingClientRect().left + 'top ' + document.getElementById(id).getBoundingClientRect().top);
-  }
-
-  /*//////////////////////no need*/
-  setWidth(id) {
-    document.getElementById(id).style.width = 1000 + 'px';
-  }
-
-  scrolled(ev){
-    alert('scrolled');
-  }
-  scollPos() {
-    const div = document.getElementById('canvas').scrollTop;
-    alert(div);
-  }
-
 }
 

@@ -2,6 +2,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Globals {
-  list: any[] = [];
+  compList: any[] = [];
   connectors: any[] = [];
 }

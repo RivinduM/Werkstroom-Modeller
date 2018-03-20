@@ -1,18 +1,14 @@
-<!--
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
--->
-
-<div  class="card cardBorder cardBack" style="margin-left:10px;padding-top:10px;padding-bottom:10px;margin-right: 10px" >
+<div class="card cardBorder cardBack" style="margin-left:10px;padding-top:10px;padding-bottom:10px;margin-right: 10px" id = 'palette'>
 
   <div class="row">
 
-    <div  class="toolBox-container">
+    <div class="toolBox-container">
 
-      <div class="icon-bar toolBox"  style="margin-left:25px">
-        <div (click)="showList()">Toolbox</div>
+      <div class="icon-bar toolBox" style="margin-left:25px">
+        <div >Toolbox</div>
 
         <a class="primary mouseOver">
-          <div class="box" draggable="true" (dragstart)="drag($event)" id="boxModal" >
+          <div class="box" draggable="true" (dragstart)="drag($event)" id="boxModal">
             <div class="boxheader">Header</div>
             <div class="boxbody">Body</div>
           </div>
@@ -20,26 +16,20 @@
         </a>
 
         <a class="primary mouseOver">
-          <div class="box circle" draggable="true" (dragstart)="drag($event)" id="circleModal" >
+          <div class="box circle" draggable="true" (dragstart)="drag($event)" id="circleModal">
             <div class="boxheader">Header</div>
             <div class="boxbody">Body</div>
           </div>
-          <!--<div  class="inputBox" draggable="true" (dragstart)="drag($event)" id="inputBox" ></div>-->
         </a>
-       <!-- <a class="primary mouseOver"><i class="fa fa-times-circle"  draggable="true" (dragstart)="drag($event)" id="times"></i></a>
-        <a class="primary mouseOver" ><i class="fa fa-plus-circle"  draggable="true" (dragstart)="drag($event)" id="plus"></i></a>
-        <a class="primary mouseOver" ><i class="fa fa-minus-circle "  draggable="true" (dragstart)="drag($event)" id="minus"></i></a>
-
-        <div (drop)="remove($event)" (dragover)="allowDrop($event)"><a class="primary"><i class="fa fa-trash"   id="trash"></i></a></div>-->
       </div>
 
     </div>
-    <div class="workspace col-md-10">
-    <div  class="bin" (drop)="drop($event)" (dragover)="allowDrop($event)" id="canvas" (click)="showPos($event)" >
-     <!-- <div id="line"></div>-->
-     <!-- <app-line></app-line>-->
+    <div id="workspace" class="workspace col-md-10" (mousemove)="updateList()">
+      <div class="bin" (drop)="drop($event)" (dragover)="allowDrop($event)" id="canvas" (click)="showPos($event)">
+        <!-- <div id="line"></div>-->
+        <!-- <app-line></app-line>-->
 
-    </div>
+      </div>
     </div>
 
   </div>
@@ -48,12 +38,13 @@
 
 
 <h4>Component List</h4>
-<ul >
-  <li *ngFor="let item of list">
+<ul>
+  <li *ngFor="let item of compList">
     <!--<div *ngIf="item" (onCreate)="dynamicInsert(item.name, item.x, item.y)">
       {{item.name}}
     </div>-->
-    {{item.type}}  {{item.id}}  {{item.x}}  {{item.y}}  title: {{item.title}} body: {{item.body}} h {{item.height}} w {{item.width}} z {{item.z}}
+    {{item.type}} title: {{item.title}} body: {{item.body}} id: {{item.id}} h {{item.height}} w
+    {{item.width}} z {{item.z}}
     <span (click)="delete(item.id)" class="remove">Remove</span> x {{item.x}} y {{item.y}}
 
   </li>
@@ -62,7 +53,10 @@
 <h6>Connectors</h6>
 <ul>
   <li *ngFor="let connector of connectors">
-    <span (click)="connPos(connector.id)"> {{connector.id}}</span> {{connector.node1}} {{connector.node2}}
-    <span (click)="delete(connector.id)" class="remove">Remove</span><span (click)="setWidth(connector.id)">WidthSet</span>
+    <span > {{connector.id}}</span> {{connector.node1}} {{connector.node2}}
+    <span (click)="delete(connector.id)" class="remove">Remove</span><span>WidthSet</span>
   </li>
 </ul>
+
+
+<!--<p id="demo" (click)="updateList()">HERE</p>-->

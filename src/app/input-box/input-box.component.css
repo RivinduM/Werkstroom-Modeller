@@ -22,6 +22,9 @@ input[type=number]::-webkit-outer-spin-button {
 .move{
   float:left;
 }
+.line-link{
+  cursor: grab;
+}
 
 .box {
   background: #b4ffe5;
@@ -34,8 +37,8 @@ input[type=number]::-webkit-outer-spin-button {
   height: 200px;
   overflow: hidden;
   /* limit size with min/max-width/height*/
-  min-height: 50px;
-  min-width: 100px;
+  min-height: 180px;
+  min-width: 200px;
   max-width: 500px;
   max-height: 400px;
   resize: both;

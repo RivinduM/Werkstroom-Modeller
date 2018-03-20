@@ -11,11 +11,11 @@ import {Globals} from '../globals';
 export class LineComponent implements OnInit {
   cid = uuid();
   connectors = this.globals.connectors;
-  list: any[] = this.globals.list;
- /* x1 = '0';
-  x2 = '0';
+  compList: any[] = this.globals.compList;
+  /*x1 = '0';
+  x2 = '100';
   y1 = '0';
-  y2 = '0';*/
+  y2 = '100';*/
   constructor(private globals: Globals) {
   }
   ngOnInit() {
@@ -47,13 +47,13 @@ export class LineComponent implements OnInit {
         const line = this.connectors.find(i => i.id === this.cid);
 
         const node1 = line.node1;
-        const n1Connectors = this.list.find(i => i.id === node1).connectors;
+        const n1Connectors = this.compList.find(i => i.id === node1).connectors;
         const n1Line = n1Connectors.find(i => i.id === this.cid);
         const n1LineIndex = n1Connectors.indexOf(n1Line);
         n1Connectors.splice(n1LineIndex, 1);
 
         const node2 = line.node2;
-        const n2Connectors = this.list.find(i => i.id === node2).connectors;
+        const n2Connectors = this.compList.find(i => i.id === node2).connectors;
         const n2Line = n2Connectors.find(i => i.id === this.cid);
         const n2LineIndex = n2Connectors.indexOf(n2Line);
         n2Connectors.splice(n2LineIndex, 1);
@@ -74,5 +74,13 @@ export class LineComponent implements OnInit {
     this.x2 = x2/!*.toString()*!/;
     this.y1 = y1/!*.toString()*!/;
     this.y2 = y2/!*.toString()*!/;*!/
+  }*/
+
+  /*my(){
+    alert("hemmm");
+    this.y2 = '200';
+    this.x2 = '150';
+
+
   }*/
 }
