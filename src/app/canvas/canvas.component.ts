@@ -26,6 +26,7 @@ export class CanvasComponent implements OnInit {
   }
 
   ngOnInit() {
+    document.getElementById('workspace').scrollTo(0,178);
   }
 
   /**
@@ -142,6 +143,7 @@ export class CanvasComponent implements OnInit {
   /*//////////////////////no need*/
   showPos(ev) {
     alert(ev.screenX + ' ' + ev.screenY);
+
     /*alert(document.getElementById('canvas').scrollLeft);
 */
     /*alert(document.getElementById('canvas').scrollWidth)

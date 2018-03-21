@@ -66,7 +66,7 @@ export class InputBoxComponent implements OnInit {
   addToList() {
     const comp = {
       id: this.cid, type: 'Box', x: 250, y: 60, title: this.title,
-      body: this.body, height: 200, width: 250, z: 1000, connectors: []
+      body: this.body, height: 200, width: 250, z: 1000, connectors: [], neighbors: []
     };
     this.compList.push(comp);
   }
@@ -236,18 +236,23 @@ export class InputBoxComponent implements OnInit {
     ev.preventDefault();
   }
 
-  connect(ev){
+
+  /**
+   * @desc connect 2 components by line
+   * @param ev
+   */
+  connect(ev) {
     ev.preventDefault();
     const prevNode = ev.dataTransfer.getData('text');
     const curNode = this.cid;
-    this.drawLine(prevNode, curNode);
+    this.drawLine(prevNode, curNode, true);
   }
 
   /**
-   * @desc connect components by line
+   * @desc drawing line & updating lists
    * @param ev
    */
-  drawLine(prevNode, curNode) {
+  drawLine(prevNode, curNode, newConnection) {
     /*ev.preventDefault();
     const prevNode = ev.dataTransfer.getData('text');
     const curNode = this.cid;*/
@@ -314,13 +319,58 @@ export class InputBoxComponent implements OnInit {
       const rightEle = this.compList.find(i => i.id === rightNode);
       leftEle.connectors.push(lineId);
       rightEle.connectors.push(lineId);
+      if (newConnection) {
+        leftEle.neighbors.push(rightNode);
+        rightEle.neighbors.push(leftNode);
+      }
     }
   }
 
   /**
-   * move and reposition connected lines when components moved
+   * @desc move connections
    */
-  moveConnectors() {
+  moveConnectors(){
+    // get all lines connected to moving component
+    const lines = this.compList.find(i => i.id === this.cid).connectors;
+    const num = lines.length;
+
+    for (let i = 0; i < num; i++) {
+      const lineId = lines[0];
+      const line = this.connectors.find(j => j.id === lineId);
+      // get other connected node
+      const node = (line.node1 === this.cid) ? line.node2 : line.node1;
+
+      // remove line from other node
+      const n1Connectors = this.compList.find(k => k.id === node).connectors;
+      const n1LineIndex = n1Connectors.indexOf(lineId);
+      if (n1LineIndex !== -1) {
+        n1Connectors.splice(n1LineIndex, 1);
+      }
+
+      // remove line from connectors
+      const removeId = this.connectors.indexOf(line);
+      if (removeId !== -1) {
+        this.connectors.splice(removeId, 1);
+      }
+
+      // remove line from current node
+      this.compList.find(p => p.id === this.cid).connectors.splice(0, 1);
+
+      // remove line from dom
+      document.getElementById(lineId).remove();
+    }
+
+    // get neighbors of current node
+    const neighbors = this.compList.find(i => i.id === this.cid).neighbors;
+
+    // draw line to each neighbor
+    for (const element of neighbors) {
+      this.drawLine(this.cid, element, false);
+    }
+  }
+
+  /*-----------no need----------------------*/
+  moveConnectors2() {
     const connections = this.compList.find(i => i.id === this.cid).connectors;
     for (const entry of connections) {
       // finding nodes
