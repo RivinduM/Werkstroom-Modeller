@@ -1,42 +1,48 @@
 <h4 class="components">Components on the canvas</h4>
-<table class="componentsTable">
-  <tr>
-    <th>Type</th>
-    <th>Title</th>
-    <th>Body</th>
-    <th>Id</th>
-    <th>Height</th>
-    <th>Width</th>
-    <th>X</th>
-    <th>Y</th>
-    <th>Z</th>
-    <th>Connections</th>
-    <th>Remove</th>
+<div *ngIf="compList.length > 0">
+  <table class="componentsTable">
+    <tr>
+      <th>Type</th>
+      <th>Title</th>
+      <th>Body</th>
+      <th>Id</th>
+      <th>Height</th>
+      <th>Width</th>
+      <th>X</th>
+      <th>Y</th>
+      <th>Z</th>
+      <th>Connections</th>
+      <th>Remove</th>
 
-  </tr>
-  <tr *ngFor="let item of compList">
-    <td>{{item.type}}</td>
-    <td>{{item.title}}</td>
-    <td>{{item.body}}</td>
-    <td>{{item.id}}</td>
-    <td>{{item.height}}</td>
-    <td>{{item.width}}</td>
-    <td>{{item.x}}</td>
-    <td>{{item.y}}</td>
-    <td>{{item.z}}</td>
-    <td>
+    </tr>
+    <tr *ngFor="let item of compList">
+      <td>{{item.type}}</td>
+      <td>{{item.title}}</td>
+      <td>{{item.body}}</td>
+      <td>{{item.id}}</td>
+      <td>{{item.height}}</td>
+      <td>{{item.width}}</td>
+      <td>{{item.x}}</td>
+      <td>{{item.y}}</td>
+      <td>{{item.z}}</td>
+      <td>
     <span *ngFor="let neighbor of item.neighbors">
       {{neighbor}}<br></span>
-    </td>
+      </td>
 
-    <td (click)="delete(item.id)" class="remove">Remove</td>
+      <td (click)="delete(item.id)" class="remove">Remove</td>
 
-  </tr>
+    </tr>
 
-</table>
-
+  </table>
+</div>
+<div *ngIf="compList.length == 0">
+  No components on the canvas
+</div>
 
 <h4 class="components">Connectors</h4>
+<div *ngIf="connectors.length > 0">
+
 
 <table class="componentsTable">
   <tr>
@@ -52,3 +58,7 @@
     <td (click)="delete(connector.id)" class="remove">Remove</td>
   </tr>
 </table>
+</div>
+<div *ngIf="connectors.length == 0">
+  No connectors on the canvas
+</div>
