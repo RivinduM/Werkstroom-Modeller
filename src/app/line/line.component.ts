@@ -9,7 +9,8 @@ import {Globals} from '../globals';
   styleUrls: ['./line.component.css']
 })
 export class LineComponent implements OnInit {
-  cid = uuid();
+ /* cid = uuid();*/
+  cid: string;
   connectors = this.globals.connectors;
   compList: any[] = this.globals.compList;
   /*x1 = '0';

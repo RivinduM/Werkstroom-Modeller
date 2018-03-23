@@ -11,9 +11,10 @@ import {LineComponent} from '../line/line.component';
 
 })
 export class InputBoxComponent implements OnInit {
-  cid = uuid();
-  showcntrl = 'showControls' + this.cid;
-  cntrl = 'controls' + this.cid;
+  /*cid = uuid();*/
+  cid: string;
+  showcntrl: string;
+  cntrl: string;
   title = '';
   body = '';
   compList: any[] = this.globals.compList;
@@ -34,30 +35,32 @@ export class InputBoxComponent implements OnInit {
    * @desc set modal header and body text on initialization
    */
   ngOnInit() {
-    swal.setDefaults({
-      input: 'text',
-      confirmButtonText: 'Next &rarr;',
-      showCancelButton: true,
-      progressSteps: ['1', '2'],
-      allowOutsideClick: false
-    });
+    if (this.title === '' && this.body === '') {
+      swal.setDefaults({
+        input: 'text',
+        confirmButtonText: 'Next &rarr;',
+        showCancelButton: true,
+        progressSteps: ['1', '2'],
+        allowOutsideClick: false
+      });
 
-    const steps = [
-      {
-        title: 'Modal Header',
-        text: 'Enter title of the box'
-      },
-      'Modal Body'
-    ];
+      const steps = [
+        {
+          title: 'Modal Header',
+          text: 'Enter title of the box'
+        },
+        'Modal Body'
+      ];
 
-    swal.queue(steps).then((result) => {
-      swal.resetDefaults();
-      if (result.value) {
-        this.title = result.value[0];
-        this.body = result.value[1];
-        this.addToList();
-      }
-    });
+      swal.queue(steps).then((result) => {
+        swal.resetDefaults();
+        if (result.value) {
+          this.title = result.value[0];
+          this.body = result.value[1];
+          this.addToList();
+        }
+      });
+    }
   }
 
   /**
@@ -160,6 +163,20 @@ export class InputBoxComponent implements OnInit {
       if (result.value) {
         document.getElementById(this.cid).remove();
         const component = this.compList.find(i => i.id === this.cid);
+        for (const neighbor of component.neighbors) {
+          const neighborEle = this.compList.find(i => i.id === neighbor).neighbors;
+          const nIndex = neighborEle.indexOf(this.cid);
+          neighborEle.splice(nIndex, 1);
+        }
+        for (const line of component.connectors) {
+          for (let i = 0; i < this.connectors.length; i++) {
+            if (this.connectors[i].id === line) {
+              this.connectors.splice(i, 1);
+              document.getElementById(line).remove();
+              break;
+            }
+          }
+        }
         const index = this.compList.indexOf(component);
         this.compList.splice(index, 1);
       }
@@ -245,20 +262,21 @@ export class InputBoxComponent implements OnInit {
     ev.preventDefault();
     const prevNode = ev.dataTransfer.getData('text');
     const curNode = this.cid;
-    this.drawLine(prevNode, curNode, true);
+    const id = uuid();
+    this.drawLine(prevNode, curNode, true, id);
   }
 
   /**
    * @desc drawing line & updating lists
    * @param ev
    */
-  drawLine(prevNode, curNode, newConnection) {
+  drawLine(prevNode, curNode, newConnection, id) {
     /*ev.preventDefault();
     const prevNode = ev.dataTransfer.getData('text');
     const curNode = this.cid;*/
     let leftNode: string;
     let rightNode: string;
-
+    const lineId = id;
     if (curNode !== prevNode) {
       // setting left and right nodes
       if (document.getElementById(prevNode).getBoundingClientRect().left < document.getElementById(curNode).getBoundingClientRect().left) {
@@ -271,11 +289,12 @@ export class InputBoxComponent implements OnInit {
 
       // generating line
       const componentRef = this.componentFactoryResolver.resolveComponentFactory(LineComponent).create(this.injector);
-      const lineId = componentRef.instance.cid;
+      /*const lineId = componentRef.instance.cid;*/
+      componentRef.instance.cid = lineId;
       this.appRef.attachView(componentRef.hostView);
       const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-      const line = {id: lineId, node1: leftNode, node2: rightNode};
-      this.connectors.push(line);
+      /*const line = {id: lineId, node1: leftNode, node2: rightNode};
+      this.connectors.push(line);*/
 
       const leftNodeElm = this.compList.find(i => i.id === leftNode);
       const rightNodeElm = this.compList.find(i => i.id === rightNode);
@@ -309,27 +328,46 @@ export class InputBoxComponent implements OnInit {
           const newLine = document.getElementById(lineId);
           newLine.style.width = hypo + 'px';
           newLine.style.transform = 'rotate(' + angleDeg + 'deg)';
-         /* const left = lineLeftX + scroll[0] - workspaceX;
-          const top = lineLeftY + scroll[1] - workspaceY;*/
+          /* const left = lineLeftX + scroll[0] - workspaceX;
+           const top = lineLeftY + scroll[1] - workspaceY;*/
         }
       }, 10);
 
       // adding connector to components in the list
       const leftEle = this.compList.find(i => i.id === leftNode);
       const rightEle = this.compList.find(i => i.id === rightNode);
-      leftEle.connectors.push(lineId);
-      rightEle.connectors.push(lineId);
+      /*leftEle.connectors.push(lineId);
+      rightEle.connectors.push(lineId);*/
       if (newConnection) {
+        leftEle.connectors.push(lineId);
+        rightEle.connectors.push(lineId);
         leftEle.neighbors.push(rightNode);
         rightEle.neighbors.push(leftNode);
+        const line = {id: lineId, node1: leftNode, node2: rightNode};
+        this.connectors.push(line);
       }
+    }
+  }
+
+  /**
+   * @desc move connected lines
+   */
+  moveConnectors() {
+    const lines = this.compList.find(i => i.id === this.cid).connectors;
+    const num = lines.length;
+    for (let i = 0; i < num; i++) {
+      const line = lines[i];
+      document.getElementById(line).remove();
+      const connection = this.connectors.find(i => i.id === line);
+      const node = (connection.node1 === this.cid) ? connection.node2 : connection.node1;
+      this.drawLine(this.cid, node, false, line);
     }
   }
 
   /**
    * @desc move connections
    */
-  moveConnectors(){
+  moveConnectors2() {
     // get all lines connected to moving component
     const lines = this.compList.find(i => i.id === this.cid).connectors;
     const num = lines.length;
@@ -365,12 +403,12 @@ export class InputBoxComponent implements OnInit {
 
     // draw line to each neighbor
     for (const element of neighbors) {
-      this.drawLine(this.cid, element, false);
+      this.drawLine(this.cid, element, false, '1');
     }
   }
 
   /*-----------no need----------------------*/
-  moveConnectors2() {
+  moveConnectors3() {
     const connections = this.compList.find(i => i.id === this.cid).connectors;
     for (const entry of connections) {
       // finding nodes
@@ -402,9 +440,11 @@ export class InputBoxComponent implements OnInit {
       const lineRightY = rightNodeElm.getBoundingClientRect().bottom - leftNodeElm.getBoundingClientRect().height;*/
       const leftNodeElm = this.compList.find(i => i.id === leftNode);
       const rightNodeElm = this.compList.find(i => i.id === rightNode);
-      const lineLeftX = leftNodeElm.x; /*+ (leftNodeElm.width / 2);*/
+      const lineLeftX = leftNodeElm.x;
+      /*+ (leftNodeElm.width / 2);*/
       const lineLeftY = document.getElementById(leftNode).getBoundingClientRect().bottom - leftNodeElm.height;
-      const lineRightX = rightNodeElm.x; /* + (rightNodeElm.width / 2);*/
+      const lineRightX = rightNodeElm.x;
+      /* + (rightNodeElm.width / 2);*/
       const lineRightY = document.getElementById(rightNode).getBoundingClientRect().bottom - rightNodeElm.height;
 
       const xDist = lineRightX - lineLeftX;
@@ -433,7 +473,7 @@ export class InputBoxComponent implements OnInit {
       const line = document.getElementById(entry);
       console.log('line id: ' + entry);
       const lineLeft = lineLeftX + scroll[0] - workspaceX - Math.abs(adjustment) - (paletteX * 3);
-      const lineTop =  lineLeftY + scroll[1] - workspaceY + adjustment - paletteY;
+      const lineTop = lineLeftY + scroll[1] - workspaceY + adjustment - paletteY;
       console.log(leftNodeElm.title + ' <= left , right => ' + rightNodeElm.title);
       /*console.log('lineLeftX : ' + lineLeftX);
       console.log('scrolll : ' + scroll[0]);
@@ -452,15 +492,15 @@ export class InputBoxComponent implements OnInit {
 
   /*-----------no need -------------------*/
   showpos() {
-
+    alert(this.cid);
     /*const conns = this.compList.find(i => i.id === this.cid).connectors;
     for (const entry of conns) {
       console.log(entry);
     }*/
-    alert(document.getElementById(this.cid).getBoundingClientRect().bottom);
+    /*alert(document.getElementById(this.cid).getBoundingClientRect().bottom);
     alert(document.getElementById(this.cid).getBoundingClientRect().top);
     const lineLeftY = (document.getElementById(this.cid).style.height + document.getElementById(this.cid).getBoundingClientRect().bottom);
-    alert(lineLeftY);
+    alert(lineLeftY);*/
     /*const ele = document.getElementById(this.cid).getBoundingClientRect();
     alert(ele.left + ' '  + ele.right + '  '+ ele.top + ' ' + ele.bottom);*/
   }

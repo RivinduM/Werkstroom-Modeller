@@ -1,11 +1,13 @@
-body {margin:0}
+body {
+  margin: 0
+}
 
 .icon-bar {
   width: 80px;
   background-color: #555;
 }
 
-.icon-bar a{
+.icon-bar a {
   display: block;
   text-align: center;
   padding: 8px;
@@ -13,87 +15,81 @@ body {margin:0}
   color: white;
   font-size: 36px;
   border: 1px solid #010840;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
-  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -2px 0 rgba(0, 0, 0, .25), inset 0 -3px 0 rgba(255, 255, 255, .2), 0 1px 0 rgba(0, 0, 0, .1);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -2px 0 rgba(0, 0, 0, .25), inset 0 -3px 0 rgba(255, 255, 255, .2), 0 1px 0 rgba(0, 0, 0, .1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -2px 0 rgba(0, 0, 0, .25), inset 0 -3px 0 rgba(255, 255, 255, .2), 0 1px 0 rgba(0, 0, 0, .1);
 
 }
 
 .icon-bar a:hover {
   background-color: #010840;
-  border: 1 px black;
+  border: 1px black;
 }
 
 .active {
   background-color: #4CAF50 !important;
 }
-.cardBack{
+
+.cardBack {
   background-color: rgb(132, 147, 219);
 }
 
-.mouseOver{
+.mouseOver {
   cursor: copy;
 }
-.cardBorder{
+
+.cardBorder {
   border-color: rgba(115, 170, 193, 0.72);
 }
 
-.workspace{
+.workspace {
   background-color: #e4ffea;
   position: relative;
   overflow: auto;
-  height:500px;
+  height: 500px;
   width: 1136px;
 }
 
-
 .bin {
-@extend %content;
-  left:0px;
+@extend % content;
+  left: 0px;
   height: 4000px;
   width: 10000px;
   border: 1px solid #0000c1;
   position: absolute;
   background-color: #e4ffea;
 
-
   background-image: linear-gradient(rgba(0, 0, 193, 0.34) 1px,
-  transparent 2px),linear-gradient(90deg, rgba(0, 0, 193, 0.34) 2px, transparent 1px),
+  transparent 2px), linear-gradient(90deg, rgba(0, 0, 193, 0.34) 2px, transparent 1px),
   linear-gradient(rgba(1, 8, 64, 0.3) 1px, transparent 1px),
   linear-gradient(90deg, rgba(1, 8, 64, 0.3) 1px, transparent 1px);
-  background-size:90px 90px, 90px 90px, 15px 15px, 15px 15px;
-  background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px;
-
+  background-size: 90px 90px, 90px 90px, 15px 15px, 15px 15px;
+  background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
 
 }
 
-
-.toolBox{
+.toolBox {
   border: 2px solid black;
 }
-
-
 
 .widget-container {
   background-color: #010840;
 }
 
-
 .toolBox-container {
-  width:135px;
+  width: 135px;
   margin-left: 20px;
 }
 
-.primary{
+.primary {
   margin: auto;
-  height:72px;
+  height: 72px;
 }
 
-.inputBox:active{
-  height:40px;
+.inputBox:active {
+  height: 40px;
   width: 40px;
 }
-
 
 .box {
   text-align: center;
@@ -126,19 +122,19 @@ body {margin:0}
   padding: 10px;
 }
 
-.circle{
+.circle {
   border-radius: 100%;
 }
 
-.remove{
+.remove {
   cursor: pointer;
 }
 
-.remove:hover{
+.remove:hover {
   text-decoration: underline;
 }
 
-#line{
+#line {
   width: 100px;
   height: 2px;
   top: 100px;
@@ -152,3 +148,5 @@ body {margin:0}
   -moz-border-radius: 10px;
   border-radius: 10px;
 }
+
+
