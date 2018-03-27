@@ -1,8 +1,13 @@
-.mouseOver{
+.mouseOver {
   cursor: move;
 }
-.move{
+
+.move {
   float: left;
+}
+
+.line-link {
+  cursor: grab;
 }
 
 .circle {
@@ -96,4 +101,8 @@ span.resize{
 }
 .move:hover .tooltipText {
   visibility: visible;
+}
+
+.circle-control{
+  z-index: 1000;
 }

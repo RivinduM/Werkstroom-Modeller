@@ -35,7 +35,8 @@ export class InputBoxComponent implements OnInit {
    * @desc set modal header and body text on initialization
    */
   ngOnInit() {
-    if (this.title === '' && this.body === '') {
+    const newElement = (!this.compList.find(i => i.id === this.cid));
+    if (newElement) {
       swal.setDefaults({
         input: 'text',
         confirmButtonText: 'Next &rarr;',
@@ -162,17 +163,36 @@ export class InputBoxComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         document.getElementById(this.cid).remove();
+        // console.log('---------------------------------------------------------');
+        // console.log('removed ' + this.cid);
         const component = this.compList.find(i => i.id === this.cid);
+        // console.log('affected nodes = ' + component.neighbors);
         for (const neighbor of component.neighbors) {
           const neighborEle = this.compList.find(i => i.id === neighbor).neighbors;
           const nIndex = neighborEle.indexOf(this.cid);
           neighborEle.splice(nIndex, 1);
+          // console.log(neighbor +  ' ---> ' + neighborEle);
         }
+
+
+        // console.log('lines to remove = ' + component.connectors);
         for (const line of component.connectors) {
+          console.log('line *** ' + line);
           for (let i = 0; i < this.connectors.length; i++) {
             if (this.connectors[i].id === line) {
+
+              const node1 = (this.connectors[i].node1 === this.cid) ? this.connectors[i].node2 : this.connectors[i].node1;
+              const n1Connectors = this.compList.find(j => j.id === node1).connectors;
+              // console.log('neighbor ' + node1 + ' connectors before  = ' + n1Connectors);
+              // const n1Line = n1Connectors.find(j => j.id === line);
+              const n1LineIndex = n1Connectors.indexOf(line);
+              if (n1LineIndex !== -1) {
+                n1Connectors.splice(n1LineIndex, 1);
+              }
+              // console.log('neighbor ' + node1 + ' connectors after  = ' + n1Connectors);
               this.connectors.splice(i, 1);
               document.getElementById(line).remove();
+              i--;
               break;
             }
           }
@@ -492,7 +512,7 @@ export class InputBoxComponent implements OnInit {
 
   /*-----------no need -------------------*/
   showpos() {
-    alert(this.cid);
+    // alert(this.cid);
     /*const conns = this.compList.find(i => i.id === this.cid).connectors;
     for (const entry of conns) {
       console.log(entry);
