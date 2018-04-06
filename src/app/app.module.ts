@@ -13,6 +13,7 @@ import {LineComponent} from './line/line.component';
 import {RouterModule} from '@angular/router';
 import {HelpComponent} from './help/help.component';
 import {ComponentTableComponent} from './component-table/component-table.component';
+import {AngularFontAwesomeModule} from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {ComponentTableComponent} from './component-table/component-table.compone
       {path: '', component: CanvasComponent},
       {path: 'help', component: HelpComponent},
       {path: 'components', component: ComponentTableComponent}
-    ])
+    ]),
+    AngularFontAwesomeModule
   ],
   entryComponents: [InputBoxComponent, InputCircleComponent, LineComponent],
   providers: [Globals],

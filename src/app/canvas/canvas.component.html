@@ -4,34 +4,33 @@
 <h5>Easy workflow model designer </h5>
 <br>
 
-<div class="card cardBorder cardBack" style="margin-left:10px;padding-top:10px;padding-bottom:10px;margin-right: 10px; margin-bottom: 10px"
-     id='palette'>
+<div class="card cardBack" id='palette'>
 
-  <div class="row">
+  <div class="row  col-md-12 col-sm-12">
 
     <div class="toolBox-container">
 
-      <div class="icon-bar toolBox" style="margin-left:25px">
+      <div class="icon-bar">
         <div>Toolbox</div>
 
         <a class="primary mouseOver">
           <div class="box" draggable="true" (dragstart)="drag($event)" id="boxModal">
-            <div class="boxheader">Header</div>
-            <div class="boxbody">Body</div>
+            <div class="boxheader" id="toolboxBoxHeader">Header</div>
+            <div class="boxbody" id="toolboxBoxBody">Body</div>
           </div>
         </a>
 
         <a class="primary mouseOver">
           <div class="box circle" draggable="true" (dragstart)="drag($event)" id="circleModal">
-            <div class="boxheader">Header</div>
-            <div class="boxbody">Body</div>
+            <div class="boxheader" id="toolboxCircleHeader">Header</div>
+            <div class="boxbody" id="toolboxCircleBody">Body</div>
           </div>
         </a>
       </div>
 
     </div>
-    <div id="workspace" class="workspace col-md-10" (mousemove)="updateList()">
-      <div class="bin" (drop)="drop($event)" (dragover)="allowDrop($event)" id="canvas" (click)="showPos($event)">
+    <div id="workspace" class="workspace" (mousemove)="updateList()">
+      <div class="bin" (drop)="drop($event)" (dragover)="allowDrop($event)" id="canvas">
       </div>
     </div>
 
@@ -40,7 +39,7 @@
 </div>
 
 
-<h4 style="margin-top: 250px; background-color: #3c3c3c" id="components">Component List</h4>
+<!--<h4 style="margin-top: 250px; background-color: #3c3c3c" id="components">Component List</h4>
 <table id="componentsTable">
   <tr>
   <th>Type</th>
@@ -72,13 +71,13 @@
     </td>
 
     <td (click)="delete(item.id)" class="remove">Remove</td>
-    <!--{{item.type}} title: {{item.title}} body: {{item.body}} id: {{item.id}} h {{item.height}} w
+    &lt;!&ndash;{{item.type}} title: {{item.title}} body: {{item.body}} id: {{item.id}} h {{item.height}} w
     {{item.width}} z {{item.z}}
     <span (click)="delete(item.id)" class="remove">Remove</span> x {{item.x}} y {{item.y}}
-    connected to : {{item.neighbors}}-->
+    connected to : {{item.neighbors}}&ndash;&gt;
   </tr>
 
-</table>
+</table>-->
 
 <!--<h6>Connectors</h6>
 <ul>
@@ -90,4 +89,4 @@
 
 
 <!--<p id="demo" (click)="updateList()">HERE</p>-->
-<p>done</p>
+
