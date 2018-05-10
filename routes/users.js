@@ -5,8 +5,8 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 
-
 router.post('/register', (req, res, next) => {
+  console.log('register in routes users');// ***************************************************
   let newUser = new User({
     name: req.body.name,
     email: req.body.email,

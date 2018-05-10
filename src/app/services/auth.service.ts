@@ -11,6 +11,7 @@ export class AuthService {
   constructor(private http: Http) { }
 
   registerUser(user){
+    console.log('register user in authservice'); // ***************************************************
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/users/register', user, {headers: headers}).map(res => res.json());
@@ -50,5 +51,11 @@ export class AuthService {
     this.authToken = null;
     this.user = null;
     localStorage.clear();
+  }
+
+  saveWorkflow(workflow){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/workflows/save', workflow, {headers: headers}).map(res => res.json());
   }
 }

@@ -15,6 +15,9 @@ import {Globals} from '../globals';
 import swal from 'sweetalert2';
 import {v4 as uuid} from 'uuid';
 import {LineComponent} from '../line/line.component';
+import {AuthService} from '../services/auth.service';
+import {FlashMessagesService} from 'angular2-flash-messages';
+import {Router} from '@angular/router';
 
 @NgModule({
   imports: [NgbModule]
@@ -29,16 +32,29 @@ import {LineComponent} from '../line/line.component';
 export class CanvasComponent implements OnInit, AfterViewInit {
   compList: any[] = this.globals.compList;
   connectors = this.globals.connectors;
+  // user: Object;
+  userId: string;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private appRef: ApplicationRef,
               private injector: Injector,
-              private globals: Globals) {
+              private globals: Globals,
+              private authService: AuthService,
+              private flashMessage: FlashMessagesService,
+              private router: Router
+              ) {
   }
 
   ngOnInit() {
     document.getElementById('workspace').scrollTo(0, 178);
 
+    this.authService.getProfile().subscribe(profile => {
+        this.userId = profile.user._id;
+      },
+      err => {
+        // console.log(err);
+        return false;
+      });
 
   }
 
@@ -342,6 +358,54 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.connectors.push(line);
       }
     }
+  }
+
+
+  async save() {
+    if (this.authService.loggedIn()) {
+      const workflowName = (this.globals.workflowName === undefined) ? 'untitled workflow' : this.globals.workflowName;
+
+      const {value: name} = await swal({
+        title: 'Enter workflow name',
+        input: 'text',
+        inputPlaceholder: 'Enter workflow name',
+        inputValue: workflowName,
+        showCancelButton: true,
+        inputValidator: (value) => {
+          return !value && 'Please enter a name to save workflow!';
+        }
+      });
+
+      if (name) {
+        this.globals.workflowName = name;
+        swal({type: 'success', title: 'Done'});
+      }
+
+      const workflow = {
+        name: this.globals.workflowName,
+        compArray: this.compList,
+        connArray: this.connectors,
+        user_id: this.userId,
+        savedDate: new Date().toISOString().split('T')[0]
+      };
+
+      // console.log(workflow);
+      this.authService.saveWorkflow(workflow).subscribe(data =>{
+        // console.log('inside canvas save authservice.saveWorkflow');
+        if (data.success){
+          this.flashMessage.show('Workflow saved', {cssClass: 'alert-success', timeout: 3000});
+        }
+        else {
+          this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+        }
+      });
+    } else {
+      this.flashMessage.show('Login to save workflow', {
+        cssClass: 'alert-danger', timeout: 3000
+      });
+      this.router.navigate(['/login']);
+    }
+    /**/
   }
 }
 
