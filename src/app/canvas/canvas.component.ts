@@ -70,7 +70,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         let error = false;
 
         const conNum = this.connectors.length;
-        console.log(this.connectors);
+        // console.log(this.connectors);
         for (let i = 0; i < conNum; i++) {
           const conn = this.connectors[i];
           try {
@@ -102,7 +102,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
         this.appRef.attachView(componentRef.hostView);
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-        console.log('------------------ ' + componentRef.instance.cid);
+        // console.log('------------------ ' + componentRef.instance.cid);
         this.insertComponent(domElem, comp.x, comp.y);
         /*const comp = {name: 'Box', x: ev.screenX, y: ev.screenY};
         this.globals.list.push(comp);*/
@@ -273,8 +273,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
    * @param id
    */
   drawLine(prevNode, curNode, newConnection, id) {
-    console.log(prevNode);
-    console.log(curNode);
+    // console.log(prevNode);
+    // console.log(curNode);
 
 
     let leftNode: string;
@@ -304,14 +304,14 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
       const leftNodeElm = this.compList.find(i => i.id === leftNode);
       const rightNodeElm = this.compList.find(i => i.id === rightNode);
-      console.log('pre 1,2 ');
-      console.log(leftNode);
-      console.log(rightNode);
+      // console.log('pre 1,2 ');
+      // console.log(leftNode);
+      // console.log(rightNode);
 
-      console.log(leftNodeElm.id);
-      console.log(rightNodeElm.id);
-      console.dir(rightNodeElm);
-      console.dir(leftNodeElm);
+      // console.log(leftNodeElm.id);
+      // console.log(rightNodeElm.id);
+      // console.dir(rightNodeElm);
+      // console.dir(leftNodeElm);
       const lineLeftX = leftNodeElm.x + (leftNodeElm.width / 2);
       const lineLeftY = /*leftNodeElm.y + leftNodeElm.height; */document.getElementById(leftNode).getBoundingClientRect().bottom - leftNodeElm.height / 2;
       const lineRightX = rightNodeElm.x + (rightNodeElm.width / 2);

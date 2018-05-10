@@ -106,4 +106,20 @@ router.post('/save', (req, res, next) => {
 
 });
 
+router.get('/models',passport.authenticate('jwt', {session: false}), (req, res, next) => {
+  userId = req.user._id;
+  Workflow.getWorkflowsByUserID(userId,(err, workflow) => {
+    if(err) throw err;
+    if (!workflow){
+      return res.json({
+        success: false, msg: 'No saved workflows'
+      });
+    }
+    else{
+      res.json(workflow);
+    }
+  });
+
+});
+
 module.exports = router;
