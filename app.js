@@ -21,7 +21,7 @@ const app = express();
 const users = require('./routes/users');
 const workflows = require('./routes/workflows');
 
-const port = 3000;
+const port = process.env.PORT ||8080;
 
 app.use(cors());
 
@@ -35,7 +35,7 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 app.use('/users', users);
-app.use('/workflows ', workflows);
+app.use('/workflows', workflows);
 
 app.get('/', (req, res) => {
   res.send('Invalid Endpoint');
