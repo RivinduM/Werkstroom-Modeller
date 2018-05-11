@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
     private globals: Globals
   ) { }
 
-  workflowName = (this.globals.workflowName === undefined) ? 'untitled workflow': this.globals.workflowName;
+  workflowName = (this.globals.workflowName === undefined) ? 'untitled workflow' : this.globals.workflowName;
 
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
@@ -42,10 +42,7 @@ export class NavbarComponent implements OnInit {
     return false;
   }
 
-  /*********************************************************/
-  check(){
-    console.log(this.authService.loggedIn())
-  }
+
 
   async changeName(){
     const {value: name} = await swal({
