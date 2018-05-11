@@ -13,13 +13,13 @@ export class AuthService {
   registerUser(user){
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('users/register', user, {headers: headers}).map(res => res.json());
+    return this.http.post('/users/register', user, {headers: headers}).map(res => res.json());
   }
 
   authenticateUser(user){
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('users/authenticate', user, {headers: headers}).map(res => res.json());
+    return this.http.post('/users/authenticate', user, {headers: headers}).map(res => res.json());
   }
 
   getProfile(){
@@ -27,7 +27,7 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.get('users/profile', {headers: headers}).map(res => res.json());
+    return this.http.get('/users/profile', {headers: headers}).map(res => res.json());
   }
 
   storeUserData(token, user){
@@ -55,7 +55,7 @@ export class AuthService {
   saveWorkflow(workflow){
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('workflows/save', workflow, {headers: headers}).map(res => res.json());
+    return this.http.post('/workflows/save', workflow, {headers: headers}).map(res => res.json());
   }
 
   getWorkflows(){
@@ -63,6 +63,6 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.get('workflows/models', {headers: headers}).map(res => res.json());
+    return this.http.get('/workflows/models', {headers: headers}).map(res => res.json());
   }
 }
