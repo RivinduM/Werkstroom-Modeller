@@ -21,7 +21,7 @@ const app = express();
 const users = require('./routes/users');
 const workflows = require('./routes/workflows');
 
-const port = 3000; /*process.env.PORT ||8080;*/
+const port = /*3000; */process.env.PORT ||8080;
 
 app.use(cors());
 
