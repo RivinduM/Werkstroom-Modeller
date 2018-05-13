@@ -4,7 +4,7 @@
   <a *ngIf="authService.loggedIn()" routerLink="/profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Profile</a>
   <a routerLink="/help" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Help</a>
   <a routerLink="/about" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">About</a>
-  <a (click)="changeName()" style="font-style: italic;background-color: #333333">{{workflowName}}</a>
+  <a (click)="changeName()" style="font-style: italic;background-color: #333333">{{staticWorkflowname}}</a>
 
 
   <a *ngIf="!authService.loggedIn()" routerLink="/login" style="float:right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
@@ -14,7 +14,7 @@
   <a *ngIf="authService.loggedIn()" href="#" (click)="onLogoutClick()" style="float:right">
      <fa name="sign-out "></fa>Logout
   </a>
-  <a *ngIf="authService.loggedIn()" style="float:right; background-color: #333333; color: white"><fa name="user-circle" ></fa>{{username}}</a>
+  <a *ngIf="authService.loggedIn()" style="float:right; background-color: #333333; color: white"><fa name="user-circle" ></fa>{{staticUsername}}</a>
   <a *ngIf="!authService.loggedIn()" routerLink="/signup" style="float:right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
     <fa name="user-circle"></fa>Signup
   </a>

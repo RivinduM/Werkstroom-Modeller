@@ -18,6 +18,7 @@ import {LineComponent} from '../line/line.component';
 import {AuthService} from '../services/auth.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
+import {NavbarComponent} from '../navbar/navbar.component';
 
 @NgModule({
   imports: [NgbModule]
@@ -406,6 +407,42 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/login']);
     }
     /**/
+  }
+
+  newWorkspace(){
+    swal({
+      title: 'New blank workspace?',
+      text: 'All unsaved changess will be lost!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirm'
+    }).then((result) => {
+
+      this.globals.workflowName = '';
+      this.globals.connectors = [];
+      this.globals.compList = [];
+      swal({
+        title: 'Loading!',
+        text: 'Please wait',
+        timer: 1000,
+        onOpen: () => {
+          swal.showLoading();
+        }
+      }).then((result) => {
+        if (
+          // Read more about handling dismissals
+        result.dismiss === swal.DismissReason.timer
+        ) {
+          this.router.navigate(['/profile']).then((result) => {
+            NavbarComponent.workflowName= 'untitled workflow';
+            this.router.navigate(['/']);
+          });
+        }
+      });
+
+    });
   }
 }
 

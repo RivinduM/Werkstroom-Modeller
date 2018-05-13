@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
@@ -12,7 +12,8 @@ import swal from 'sweetalert2';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  username: string;
+  static username: string;
+  static workflowName: string;
 
   constructor(
     protected authService: AuthService,
@@ -21,16 +22,23 @@ export class NavbarComponent implements OnInit {
     private globals: Globals
   ) { }
 
-  workflowName = (this.globals.workflowName === undefined) ? 'untitled workflow' : this.globals.workflowName;
-
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
-        this.username = profile.user.name;
+        NavbarComponent.username = profile.user.name;
       },
       err => {
         console.log(err);
         return false;
       });
+    NavbarComponent.workflowName = (this.globals.workflowName === undefined) ? 'untitled workflow' : this.globals.workflowName;
+  }
+
+  get staticUsername(){
+    return NavbarComponent.username;
+  }
+
+  get staticWorkflowname(){
+    return NavbarComponent.workflowName;
   }
 
   onLogoutClick(){
@@ -49,7 +57,7 @@ export class NavbarComponent implements OnInit {
       title: 'Enter workflow name',
       input: 'text',
       inputPlaceholder: 'Enter workflow name',
-      inputValue: this.workflowName,
+      inputValue: NavbarComponent.workflowName,
       showCancelButton: true,
       inputValidator: (value) => {
         return !value && 'Please enter a name to save workflow!';
@@ -58,7 +66,7 @@ export class NavbarComponent implements OnInit {
 
     if (name) {
       this.globals.workflowName = name;
-      this.workflowName = name;
+      NavbarComponent.workflowName = name;
       swal({type: 'success', title: 'Done'});
     }
   }

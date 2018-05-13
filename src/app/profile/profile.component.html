@@ -5,9 +5,25 @@
     <li class="list-group-item">Email: {{email}}</li>
   </ul>
   <br>
-  <ul class="list-group">
+  <!--<ul class="list-group">
     <li class="list-group-item" *ngFor="let item of workflows">
-      {{item.savedDate}} {{item.name}} <button class="btn btn-primary" (click)="open(item)">Open</button>
+      {{item.savedDate.substring(0,10)}} {{item.name}} <button class="btn btn-primary" (click)="open(item)">Open</button>
     </li>
-  </ul>
+  </ul>-->
 </div>
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Date</th>
+    <th>Workflow name</th>
+    <th>Load</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of workflows">
+    <td>{{item.savedDate.substring(0,10)}}</td>
+    <td>{{item.name}}</td>
+    <td><button class="btn btn-primary button" (click)="open(item)">Open</button></td>
+  </tr>
+  </tbody>
+</table>
