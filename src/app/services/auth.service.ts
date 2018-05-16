@@ -20,7 +20,7 @@ export class AuthService {
   registerUser(user) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('/users/register', user, {headers: headers}).map(res => res.json());
+    return this.http.post('/register', user, {headers: headers}).map(res => res.json());
   }
 
   /**
@@ -31,7 +31,7 @@ export class AuthService {
   authenticateUser(user) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('/users/authenticate', user, {headers: headers}).map(res => res.json());
+    return this.http.post('/authenticate', user, {headers: headers}).map(res => res.json());
   }
 
   /**
@@ -43,7 +43,7 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.get('/users/profile', {headers: headers}).map(res => res.json());
+    return this.http.get('/profile', {headers: headers}).map(res => res.json());
   }
 
   /**
@@ -91,7 +91,7 @@ export class AuthService {
   saveWorkflow(workflow) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('/workflows/save', workflow, {headers: headers}).map(res => res.json());
+    return this.http.post('/save', workflow, {headers: headers}).map(res => res.json());
   }
 
   /**
@@ -103,7 +103,7 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.get('/workflows/models', {headers: headers}).map(res => res.json());
+    return this.http.get('/models', {headers: headers}).map(res => res.json());
   }
 
   /**
@@ -115,7 +115,7 @@ export class AuthService {
     const body = {id: id};
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('/workflows/delete', body, {headers: headers}).map(res => res.json());
+    return this.http.post('/delete', body, {headers: headers}).map(res => res.json());
   }
 
   /**
@@ -127,7 +127,7 @@ export class AuthService {
   checkWorkflow(id, name) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('/workflows/checkWorkflow', {id: id, name: name}, {headers: headers}).map(res => res.json());
+    return this.http.post('/checkWorkflow', {id: id, name: name}, {headers: headers}).map(res => res.json());
   }
 
   /* updateWorkflow(id, workflow) {
