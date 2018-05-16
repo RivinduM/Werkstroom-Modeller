@@ -2394,7 +2394,7 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.registerUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/register', user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('users/register', user, { headers: headers }).map(function (res) { return res.json(); });
     };
     /**
      * @desc authenticate user
@@ -2404,7 +2404,7 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/authenticate', user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('users/authenticate', user, { headers: headers }).map(function (res) { return res.json(); });
     };
     /**
      * @desc get user profile
@@ -2415,7 +2415,7 @@ var AuthService = /** @class */ (function () {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        return this.http.get('/profile', { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.get('users/profile', { headers: headers }).map(function (res) { return res.json(); });
     };
     /**
      * @desc store user data in local storage
@@ -2458,7 +2458,7 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.saveWorkflow = function (workflow) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/save', workflow, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('workflows/save', workflow, { headers: headers }).map(function (res) { return res.json(); });
     };
     /**
      * @desc get workflows of a user
@@ -2469,7 +2469,7 @@ var AuthService = /** @class */ (function () {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        return this.http.get('/models', { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.get('workflows/models', { headers: headers }).map(function (res) { return res.json(); });
     };
     /**
      * delete workflow
@@ -2480,7 +2480,7 @@ var AuthService = /** @class */ (function () {
         var body = { id: id };
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/delete', body, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('workflows/delete', body, { headers: headers }).map(function (res) { return res.json(); });
     };
     /**
      * check for same name workflows
@@ -2491,7 +2491,7 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.checkWorkflow = function (id, name) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/checkWorkflow', { id: id, name: name }, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('workflows/checkWorkflow', { id: id, name: name }, { headers: headers }).map(function (res) { return res.json(); });
     };
     AuthService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
