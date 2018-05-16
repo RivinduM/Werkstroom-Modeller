@@ -71,11 +71,19 @@ export class AuthService {
     const body = {id: id};
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    const a= this.http.post('http://localhost:3000/workflows/delete', body , {headers: headers}).map(res => res.json());
-    a.subscribe(data =>{
-      console.log(data.success)
-    })
-    return a;
-    // return this.http.post('http://localhost:3000/workflows/delete', body , {headers: headers}).map(res => res.json());
+    return this.http.post('http://localhost:3000/workflows/delete', body , {headers: headers}).map(res => res.json());
   }
+
+  checkWorkflow(id, name){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/workflows/checkWorkflow', {id: id, name: name}, {headers: headers}).map(res => res.json());
+  }
+
+ /* updateWorkflow(id, workflow) {
+    const body = {id: id, workflow: workflow};
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/workflows/update', body , {headers: headers}).map(res => res.json());
+  }*/
 }

@@ -42,8 +42,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
               private globals: Globals,
               private authService: AuthService,
               private flashMessage: FlashMessagesService,
-              private router: Router
-              ) {
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -237,11 +236,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     for (const comp of this.compList) {
       if (document.getElementById(comp.id)) {
         const component = document.getElementById(comp.id);
-        if (comp.type == 'Circle'){
+        if (comp.type === 'Circle') {
           comp.x = component.getBoundingClientRect().left + this.globals.xScroll + 40;
           comp.y = component.getBoundingClientRect().top + 65 + this.globals.yScroll - 179 + 40;
-        }
-        else {
+        } else {
           comp.x = component.getBoundingClientRect().left + this.globals.xScroll;
           comp.y = component.getBoundingClientRect().top + 65 + this.globals.yScroll - 179;
         }
@@ -388,6 +386,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
       if (name) {
         this.globals.workflowName = name;
+        NavbarComponent.workflowName = name;
         swal({type: 'success', title: 'Done'});
       }
 
@@ -399,16 +398,48 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         savedDate: new Date().toISOString().split('T')[0]
       };
 
-      // console.log(workflow);
-      this.authService.saveWorkflow(workflow).subscribe(data =>{
-        // console.log('inside canvas save authservice.saveWorkflow');
-        if (data.success){
-          this.flashMessage.show('Workflow saved', {cssClass: 'alert-success', timeout: 3000});
-        }
-        else {
-          this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+
+      this.authService.checkWorkflow(workflow.user_id, workflow.name).subscribe(data => {
+        console.log('check : ' + data.success);
+        if (data.success) {
+          this.authService.saveWorkflow(workflow).subscribe(dat => {
+            // console.log('inside canvas save authservice.saveWorkflow');
+            if (dat.success) {
+              this.flashMessage.show('Workflow saved', {cssClass: 'alert-success', timeout: 3000});
+            } else {
+              this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+            }
+          });
+        } else {
+          swal({
+            title: 'Workflow name ' + workflow.name + ' already exists',
+            text: 'Please retry with a different name',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Retry'
+          }).then((result) => {
+            if (result.value) {
+              this.save();
+            }
+          });
+          /*swal({
+            title: 'Workflow name already exists',
+            text: 'Are you sure you want to replace ' + workflow.name,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, overwrite it!'
+          }).then((result) => {
+            if (result.value) {
+              this.authService.updateWorkflow(workflow.user_id, workflow);
+            }
+          });*/
         }
       });
+      // console.log(workflow);
+
     } else {
       this.flashMessage.show('Login to save workflow', {
         cssClass: 'alert-danger', timeout: 3000
@@ -418,7 +449,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     /**/
   }
 
-  newWorkspace(){
+  newWorkspace() {
     swal({
       title: 'New blank workspace?',
       text: 'All unsaved changess will be lost!',
@@ -439,13 +470,13 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         onOpen: () => {
           swal.showLoading();
         }
-      }).then((result) => {
+      }).then((res) => {
         if (
           // Read more about handling dismissals
-        result.dismiss === swal.DismissReason.timer
+        res.dismiss === swal.DismissReason.timer
         ) {
-          this.router.navigate(['/profile']).then((result) => {
-            NavbarComponent.workflowName= 'untitled workflow';
+          this.router.navigate(['/profile']).then((reslt) => {
+            NavbarComponent.workflowName = 'untitled workflow';
             this.router.navigate(['/']);
           });
         }

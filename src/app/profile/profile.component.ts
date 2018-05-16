@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import swal from 'sweetalert2';
 import {Globals} from '../globals';
 import {FlashMessagesService} from 'angular2-flash-messages';
+import {NavbarComponent} from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,7 @@ export class ProfileComponent implements OnInit {
   email: string;
   userId: string;
   workflows: object;
-  display:boolean;
+  display: boolean;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -65,17 +66,18 @@ export class ProfileComponent implements OnInit {
       this.globals.workflowName = workflow.name;
       this.globals.connectors = workflow.connArray;
       this.globals.compList = workflow.compArray;
+      NavbarComponent.workflowName = workflow.name;
       swal({
         title: 'Loading!',
         text: 'Please wait',
-        timer: 2000,
+        timer: 1000,
         onOpen: () => {
           swal.showLoading();
         }
-      }).then((result) => {
+      }).then((res) => {
         if (
           // Read more about handling dismissals
-        result.dismiss === swal.DismissReason.timer
+        res.dismiss === swal.DismissReason.timer
         ) {
           this.router.navigate(['/']);
         }
@@ -98,11 +100,10 @@ export class ProfileComponent implements OnInit {
         this.authService.deleteWorkflow(workflow._id).subscribe(data => {
         });
         swal(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-          ).then((res)=>
-        {
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        ).then((res) => {
           this.router.navigate(['/']).then((result) => {
             this.router.navigate(['/profile']);
           });

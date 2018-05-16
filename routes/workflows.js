@@ -56,4 +56,34 @@ router.post('/delete', (req, res, next) => {
 
 
 });
+
+router.post('/checkWorkflow', (req, res, next) => {
+  const userId = req.body.id;
+  const name = req.body.name;
+
+  Workflow.getWorkflowByName(userId, name, (err, workflow) => {
+    if(err) throw err;
+    if (workflow.length===0){
+      return res.json({
+        success: true, msg: 'Workflow not found'
+      });
+    }
+    return res.json({
+      success: false, msg: 'Workflow found'
+    });
+  });
+});
+
+/*router.post('/update', (req, res, next) => {
+  Workflow.updateWorkflow(req.body.id,req.body.workflow, (err, workflow) => {
+    if (err) {
+      res.json({success: false, msg: 'Failed to save workflow'});
+    }
+    else {
+      res.json({success: true, msg: 'Workflow saved'});
+    }
+  });
+
+
+});*/
 module.exports = router;
