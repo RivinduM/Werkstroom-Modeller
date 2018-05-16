@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {tokenNotExpired} from 'angular2-jwt';
+import {HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
@@ -64,5 +65,17 @@ export class AuthService {
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
     return this.http.get('http://localhost:3000/workflows/models', {headers: headers}).map(res => res.json());
+  }
+
+  deleteWorkflow(id) {
+    const body = {id: id};
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    const a= this.http.post('http://localhost:3000/workflows/delete', body , {headers: headers}).map(res => res.json());
+    a.subscribe(data =>{
+      console.log(data.success)
+    })
+    return a;
+    // return this.http.post('http://localhost:3000/workflows/delete', body , {headers: headers}).map(res => res.json());
   }
 }

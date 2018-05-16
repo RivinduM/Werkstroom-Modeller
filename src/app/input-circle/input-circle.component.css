@@ -105,5 +105,6 @@ span.resize{
 
 .circle-control{
   z-index: 1000;
-  text-shadow: 0 0 5px black;
+  /*text-shadow: 0 0 5px black;*/
+  color: black;
 }

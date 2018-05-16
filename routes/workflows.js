@@ -42,4 +42,18 @@ router.get('/models',passport.authenticate('jwt', {session: false}), (req, res, 
 
 });
 
+
+//Delete
+router.post('/delete', (req, res, next) => {
+  Workflow.deleteWorkflow(req.body.id, (err, workflow) => {
+    if (err) {
+      res.json({success: false, msg: 'Failed to delete workflow'});
+    }
+    else {
+      res.json({success: true, msg: 'Workflow deleted'});
+    }
+  });
+
+
+});
 module.exports = router;

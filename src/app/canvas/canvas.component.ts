@@ -231,11 +231,20 @@ export class CanvasComponent implements OnInit, AfterViewInit {
    * @desc update compoent array details
    */
   updateList() {
+    this.globals.yScroll = (document.getElementById('workspace').scrollTop);
+    this.globals.xScroll = (document.getElementById('workspace').scrollLeft);
+    console.log(this.globals.xScroll, this.globals.yScroll);
     for (const comp of this.compList) {
       if (document.getElementById(comp.id)) {
         const component = document.getElementById(comp.id);
-        comp.x = component.getBoundingClientRect().left;
-        comp.y = component.getBoundingClientRect().top + 65;
+        if (comp.type == 'Circle'){
+          comp.x = component.getBoundingClientRect().left + this.globals.xScroll + 40;
+          comp.y = component.getBoundingClientRect().top + 65 + this.globals.yScroll - 179 + 40;
+        }
+        else {
+          comp.x = component.getBoundingClientRect().left + this.globals.xScroll;
+          comp.y = component.getBoundingClientRect().top + 65 + this.globals.yScroll - 179;
+        }
         comp.height = component.getBoundingClientRect().height;
         comp.width = component.getBoundingClientRect().width;
         comp.z = component.style.zIndex;

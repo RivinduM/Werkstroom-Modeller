@@ -7,6 +7,11 @@ table, td, th  {
   border-collapse: collapse;
   padding: 5px;
   text-align: center;
+  margin-top: 50px;
+}
+
+th{
+  color: #8ec0a1;
 }
 
 .button{

@@ -19,6 +19,10 @@ const WorkflowSchema = mongoose.Schema({
   },
   savedDate: {
     type:Date
+  },
+  deleted:{
+    type:Boolean,
+    default:false
   }
 });
 
@@ -30,8 +34,8 @@ module.exports.getWorkflowById = function (id, callback) {
 };
 
 module.exports.getWorkflowsByUserID = function (user_id, callback) {
-  const query = {user_id: user_id};
-  Workflow.find(query, callback);
+  // const query = {user_id: user_id}, {deleted: false} ;
+  Workflow.find({user_id: user_id, deleted: false},  callback);
 };
 
 
@@ -54,6 +58,15 @@ module.exports.addWorkflow = function (newWorkflow, callback) {
   }*/
 
   /*newWorkflow.save(callback);*/
+};
+
+module.exports.deleteWorkflow = function(workflow_id){
+  Workflow.findById(workflow_id, function (err, workflow) {
+   // if (err) throw err;
+    workflow.set({ deleted: true });
+    Workflow.addWorkflow(workflow);
+  });
+
 };
 /*
 module.exports.comparePassword = function (candidatePassword, hash, callback) {

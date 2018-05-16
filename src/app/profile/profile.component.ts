@@ -3,6 +3,7 @@ import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import swal from 'sweetalert2';
 import {Globals} from '../globals';
+import {FlashMessagesService} from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-profile',
@@ -16,10 +17,12 @@ export class ProfileComponent implements OnInit {
   email: string;
   userId: string;
   workflows: object;
+  display:boolean;
 
   constructor(private authService: AuthService,
               private router: Router,
-              private globals: Globals) {
+              private globals: Globals,
+              private flashMessage: FlashMessagesService) {
   }
 
   ngOnInit() {
@@ -35,17 +38,20 @@ export class ProfileComponent implements OnInit {
         return false;
       });
 
-    this.authService.getWorkflows().subscribe(workflows =>{
-      this.workflows = workflows;
-
+    this.authService.getWorkflows().subscribe(workflows => {
+        this.workflows = workflows;
+        this.display = (workflows.length > 0);
+        console.log(workflows, this.display);
       },
       err => {
         console.log(err);
         return false;
       });
+
+
   }
 
-  open(workflow){
+  open(workflow) {
     swal({
       title: 'Are you sure?',
       text: 'All unsaved changess will be lost!',
@@ -76,5 +82,33 @@ export class ProfileComponent implements OnInit {
       });
 
     });
+  }
+
+  delete(workflow) {
+    swal({
+      title: 'Are you sure?',
+      text: workflow.name + ' will be deleted!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        this.authService.deleteWorkflow(workflow._id).subscribe(data => {
+        });
+        swal(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          ).then((res)=>
+        {
+          this.router.navigate(['/']).then((result) => {
+            this.router.navigate(['/profile']);
+          });
+        });
+      }
+    });
+
   }
 }

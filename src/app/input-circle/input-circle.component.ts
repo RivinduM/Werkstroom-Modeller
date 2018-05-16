@@ -371,5 +371,9 @@ export class InputCircleComponent implements OnInit {
     console.log(document.getElementById(this.cid).style);
   }
 
+
+  pos(){
+    console.log( document.getElementById(this.cid).getBoundingClientRect().left,  document.getElementById(this.cid).getBoundingClientRect().top)
+  }
 }
 
