@@ -1,13 +1,20 @@
-<div *ngIf="user" class="profile">
-  <h2 class="page-header">{{name}}</h2>
-  <ul class="list-group">
-    <li class="list-group-item">Username: {{username}}</li>
-    <li class="list-group-item">Email: {{email}}</li>
-  </ul>
-  <br>
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor="let item of workflows">
-      {{item.savedDate}} {{item.name}} <button class="btn btn-primary" (click)="open(item)">Open</button>
-    </li>
-  </ul>
-</div>
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Date</th>
+    <th>Workflow name</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of workflows">
+    <td>{{item.savedDate.substring(0,10)}}</td>
+    <td>{{item.name}}</td>
+    <td>
+      <button class="btn btn-primary button" (click)="open(item)">Open</button>
+      <button class="btn btn-danger button" (click)="delete(item)">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<label *ngIf="!display">No saved workflows</label>

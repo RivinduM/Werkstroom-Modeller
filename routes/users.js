@@ -5,6 +5,9 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 
+/**
+ * @desc register user
+ */
 router.post('/register', (req, res, next) => {
   let newUser = new User({
     name: req.body.name,
@@ -13,31 +16,35 @@ router.post('/register', (req, res, next) => {
     password: req.body.password
   });
 
-  User.addUser(newUser, (err, user) =>{
-    if(err){
+  User.addUser(newUser, (err, user) => {
+    if (err) {
       res.json({success: false, msg: 'Failed to register user'});
     }
-    else{
+    else {
       res.json({success: true, msg: 'User registered'});
     }
   });
 });
 
+
+/**
+ * @desc authenticate user
+ */
 router.post('/authenticate', (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
 
   User.getUserByUsername(username, (err, user) => {
-    if(err) throw err;
-    if (!user){
+    if (err) throw err;
+    if (!user) {
       return res.json({
         success: false, msg: 'User not found'
       });
     }
 
     User.comparePassword(password, user.password, (err, isMatch) => {
-      if(err) throw err;
-      if(isMatch){
+      if (err) throw err;
+      if (isMatch) {
         const token = jwt.sign(user.toJSON(), config.secret, {
           expiresIn: 604800
         });
@@ -52,13 +59,16 @@ router.post('/authenticate', (req, res, next) => {
             email: user.email
           }
         });
-      } else{
+      } else {
         return res.json({success: false, msg: 'Wrong password'});
       }
     });
   });
 });
 
+/**
+ * @desc get user profile
+ */
 router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
   res.json({user: req.user});
 });

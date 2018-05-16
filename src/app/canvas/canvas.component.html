@@ -26,14 +26,25 @@
             <div class="boxbody" id="toolboxCircleBody">Body</div>
           </div>
         </a>
+
       </div>
 
       <div class="icon-bar">
         <div style="font-size: small">Toolbox</div>
 
-        <a class="primary mouseOver" style="cursor: pointer;" >
-          <div  (click)="save()" >
-            <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ5IDQ5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0OSA0OTsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxnPgoJPHBhdGggZD0iTTM5LjkxNCwwSDM3LjVoLTI4aC05djQ5aDdoMzNoOFY4LjU4NkwzOS45MTQsMHogTTM1LjUsMnYxNGgtMjRWMkgzNS41eiBNOS41LDQ3VjI4aDI5djE5SDkuNXogTTQ2LjUsNDdoLTZWMjZoLTMzdjIxaC01ICAgVjJoN3YxNmgyOFYyaDEuNTg2TDQ2LjUsOS40MTRWNDd6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8cGF0aCBkPSJNMTMuNSwzM2g3YzAuNTUzLDAsMS0wLjQ0NywxLTFzLTAuNDQ3LTEtMS0xaC03Yy0wLjU1MywwLTEsMC40NDctMSwxUzEyLjk0NywzMywxMy41LDMzeiIgZmlsbD0iIzAwMDAwMCIvPgoJPHBhdGggZD0iTTIzLjUsMzVoLTEwYy0wLjU1MywwLTEsMC40NDctMSwxczAuNDQ3LDEsMSwxaDEwYzAuNTUzLDAsMS0wLjQ0NywxLTFTMjQuMDUzLDM1LDIzLjUsMzV6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8cGF0aCBkPSJNMjUuNzksMzUuMjljLTAuMTgxLDAuMTg5LTAuMjksMC40NS0wLjI5LDAuNzFzMC4xMDksMC41MiwwLjI5LDAuNzFDMjUuOTc5LDM2Ljg5LDI2LjIyOSwzNywyNi41LDM3ICAgYzAuMjYsMCwwLjUyLTAuMTEsMC43MS0wLjI5YzAuMTgtMC4xOSwwLjI5LTAuNDUsMC4yOS0wLjcxcy0wLjExLTAuNTIxLTAuMjktMC43MUMyNi44NCwzNC45MiwyNi4xNiwzNC45MiwyNS43OSwzNS4yOXoiIGZpbGw9IiMwMDAwMDAiLz4KCTxwYXRoIGQ9Ik0zMy41LDRoLTZ2MTBoNlY0eiBNMzEuNSwxMmgtMlY2aDJWMTJ6IiBmaWxsPSIjMDAwMDAwIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==" style="width: 50px
+        <a class="primary mouseOver" style="cursor: pointer;">
+          <div (click)="save()">
+            <img
+              src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ5IDQ5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0OSA0OTsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxnPgoJPHBhdGggZD0iTTM5LjkxNCwwSDM3LjVoLTI4aC05djQ5aDdoMzNoOFY4LjU4NkwzOS45MTQsMHogTTM1LjUsMnYxNGgtMjRWMkgzNS41eiBNOS41LDQ3VjI4aDI5djE5SDkuNXogTTQ2LjUsNDdoLTZWMjZoLTMzdjIxaC01ICAgVjJoN3YxNmgyOFYyaDEuNTg2TDQ2LjUsOS40MTRWNDd6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8cGF0aCBkPSJNMTMuNSwzM2g3YzAuNTUzLDAsMS0wLjQ0NywxLTFzLTAuNDQ3LTEtMS0xaC03Yy0wLjU1MywwLTEsMC40NDctMSwxUzEyLjk0NywzMywxMy41LDMzeiIgZmlsbD0iIzAwMDAwMCIvPgoJPHBhdGggZD0iTTIzLjUsMzVoLTEwYy0wLjU1MywwLTEsMC40NDctMSwxczAuNDQ3LDEsMSwxaDEwYzAuNTUzLDAsMS0wLjQ0NywxLTFTMjQuMDUzLDM1LDIzLjUsMzV6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8cGF0aCBkPSJNMjUuNzksMzUuMjljLTAuMTgxLDAuMTg5LTAuMjksMC40NS0wLjI5LDAuNzFzMC4xMDksMC41MiwwLjI5LDAuNzFDMjUuOTc5LDM2Ljg5LDI2LjIyOSwzNywyNi41LDM3ICAgYzAuMjYsMCwwLjUyLTAuMTEsMC43MS0wLjI5YzAuMTgtMC4xOSwwLjI5LTAuNDUsMC4yOS0wLjcxcy0wLjExLTAuNTIxLTAuMjktMC43MUMyNi44NCwzNC45MiwyNi4xNiwzNC45MiwyNS43OSwzNS4yOXoiIGZpbGw9IiMwMDAwMDAiLz4KCTxwYXRoIGQ9Ik0zMy41LDRoLTZ2MTBoNlY0eiBNMzEuNSwxMmgtMlY2aDJWMTJ6IiBmaWxsPSIjMDAwMDAwIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg=="
+              style="width: 50px
+; height: 40px; padding: auto"/>
+          </div>
+        </a>
+        <a class="primary mouseOver" style="cursor: pointer;">
+          <div (click)="newWorkspace()">
+            <img
+              src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDIzLjQyOSAyMy40MjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIzLjQyOSAyMy40Mjk7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiPgo8Zz4KCTxnPgoJCTxwb2x5Z29uIHBvaW50cz0iMTYuOTQ2LDAuNjQzIDUuMDE5LDAuNjQzIDAsNS4xMzIgMCwyMi43MjYgMTEuOTM1LDIyLjcyNiAxMS45MzUsMjEuMTQ2IDEuNzc3LDIxLjE0NiAgICAgMS43NzcsNi44NTIgNi45MjYsNi44NTIgNi45MjYsMi4yMjEgMTUuMTY5LDIuMjIxIDE1LjE2OSw3LjExMSAxNi45NDYsNy4xMTEgICAiIGZpbGw9IiMwMDAwMDAiLz4KCQk8cG9seWdvbiBwb2ludHM9IjE0LjQzOCwxNC4zNzIgMTQuNDM4LDkuNDk1IDE4LjIyNCw5LjQ5NSAxOC4yMjQsMTQuMzcyIDIzLjQyOSwxNC4zNzIgMjMuNDI5LDE3LjkwOSAgICAgMTguMjI0LDE3LjkwOSAxOC4yMjQsMjIuNzg2IDE0LjQzOCwyMi43ODYgMTQuNDM4LDE3LjkwOSA5LjI0MiwxNy45MDkgOS4yNDIsMTQuMzcyICAgIiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg=="
+              style="width: 50px
 ; height: 40px; padding: auto"/>
           </div>
         </a>
@@ -50,56 +61,3 @@
   </div>
 
 </div>
-
-
-<!--<h4 style="margin-top: 250px; background-color: #3c3c3c" id="components">Component List</h4>
-<table id="componentsTable">
-  <tr>
-  <th>Type</th>
-  <th>Title</th>
-  <th>Body</th>
-  <th>Id</th>
-  <th>Height</th>
-  <th>Width</th>
-  <th>X</th>
-  <th>Y</th>
-  <th>Z</th>
-  <th>Connections</th>
-  <th>Remove</th>
-
-  </tr>
-  <tr *ngFor="let item of compList">
-    <td>{{item.type}}</td>
-    <td>{{item.title}}</td>
-    <td>{{item.body}}</td>
-    <td>{{item.id}}</td>
-    <td>{{item.height}}</td>
-    <td>{{item.width}}</td>
-    <td>{{item.x}}</td>
-    <td>{{item.y}}</td>
-    <td>{{item.z}}</td>
-    <td>
-    <span *ngFor="let neighbor of item.neighbors">
-      {{neighbor}}<br></span>
-    </td>
-
-    <td (click)="delete(item.id)" class="remove">Remove</td>
-    &lt;!&ndash;{{item.type}} title: {{item.title}} body: {{item.body}} id: {{item.id}} h {{item.height}} w
-    {{item.width}} z {{item.z}}
-    <span (click)="delete(item.id)" class="remove">Remove</span> x {{item.x}} y {{item.y}}
-    connected to : {{item.neighbors}}&ndash;&gt;
-  </tr>
-
-</table>-->
-
-<!--<h6>Connectors</h6>
-<ul>
-  <li *ngFor="let connector of connectors">
-    <span > {{connector.id}}</span> {{connector.node1}} {{connector.node2}}
-    <span (click)="delete(connector.id)" class="remove">Remove</span><span>WidthSet</span>
-  </li>
-</ul>-->
-
-
-<!--<p id="demo" (click)="updateList()">HERE</p>-->
-

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import swal from 'sweetalert2';
 import {Globals} from '../globals';
+import {NavbarComponent} from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-profile',
@@ -16,10 +17,12 @@ export class ProfileComponent implements OnInit {
   email: string;
   userId: string;
   workflows: object;
+  display: boolean;
 
   constructor(private authService: AuthService,
               private router: Router,
-              private globals: Globals) {
+              private globals: Globals,
+             ) {
   }
 
   ngOnInit() {
@@ -35,17 +38,24 @@ export class ProfileComponent implements OnInit {
         return false;
       });
 
-    this.authService.getWorkflows().subscribe(workflows =>{
-      this.workflows = workflows;
-
+    this.authService.getWorkflows().subscribe(workflows => {
+        this.workflows = workflows;
+        this.display = (workflows.length > 0);
+        console.log(workflows, this.display);
       },
       err => {
         console.log(err);
         return false;
       });
+
+
   }
 
-  open(workflow){
+  /**
+   * @desc load workflow
+   * @param workflow
+   */
+  open(workflow) {
     swal({
       title: 'Are you sure?',
       text: 'All unsaved changess will be lost!',
@@ -59,22 +69,54 @@ export class ProfileComponent implements OnInit {
       this.globals.workflowName = workflow.name;
       this.globals.connectors = workflow.connArray;
       this.globals.compList = workflow.compArray;
+      NavbarComponent.workflowName = workflow.name;
       swal({
         title: 'Loading!',
         text: 'Please wait',
-        timer: 2000,
+        timer: 1000,
         onOpen: () => {
           swal.showLoading();
         }
-      }).then((result) => {
+      }).then((res) => {
         if (
           // Read more about handling dismissals
-        result.dismiss === swal.DismissReason.timer
+        res.dismiss === swal.DismissReason.timer
         ) {
           this.router.navigate(['/']);
         }
       });
 
     });
+  }
+
+  /**
+   * @desc delete workflow
+   * @param workflow
+   */
+  delete(workflow) {
+    swal({
+      title: 'Are you sure?',
+      text: workflow.name + ' will be deleted!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        this.authService.deleteWorkflow(workflow._id).subscribe(data => {
+        });
+        swal(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        ).then((res) => {
+          this.router.navigate(['/']).then((result) => {
+            this.router.navigate(['/profile']);
+          });
+        });
+      }
+    });
+
   }
 }

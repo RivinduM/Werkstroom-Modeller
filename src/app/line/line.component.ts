@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {v4 as uuid} from 'uuid';
-import swal from "sweetalert2";
+import {Component, OnInit} from '@angular/core';
+import swal from 'sweetalert2';
 import {Globals} from '../globals';
 
 @Component({
@@ -9,33 +8,20 @@ import {Globals} from '../globals';
   styleUrls: ['./line.component.css']
 })
 export class LineComponent implements OnInit {
- /* cid = uuid();*/
   cid: string;
   connectors = this.globals.connectors;
   compList: any[] = this.globals.compList;
-  /*x1 = '0';
-  x2 = '100';
-  y1 = '0';
-  y2 = '100';*/
+
   constructor(private globals: Globals) {
   }
+
   ngOnInit() {
-    /*alert('bounding client data');
-    alert(this.x1);
-    alert(this.y1);
-    alert(this.x2);
-    alert(this.y2);*/
   }
 
-  show(id){
-    alert('inside line');
-    alert(document.getElementById(id).getBoundingClientRect().left);
-    alert(document.getElementById(id).getBoundingClientRect().top);
-    alert(document.getElementById(id).getBoundingClientRect().right);
-    alert(document.getElementById(id).getBoundingClientRect().bottom);
-  }
-
-  delete(){
+  /**
+   * @desc delete line
+   */
+  delete() {
     swal({
       title: 'Delete the connection?',
       type: 'info',
@@ -65,23 +51,4 @@ export class LineComponent implements OnInit {
       }
     });
   }
-
-  /*setValues(x1, y1, x2, y2) {
-    document.getElementById(this.cid).style.left = x1;
-    document.getElementById(this.cid).style.top = y1;
-    document.getElementById(this.cid).style.right = x2;
-    document.getElementById(this.cid).style.bottom = y2;
- /!*   this.x1 = x1/!*.toString()*!/;
-    this.x2 = x2/!*.toString()*!/;
-    this.y1 = y1/!*.toString()*!/;
-    this.y2 = y2/!*.toString()*!/;*!/
-  }*/
-
-  /*my(){
-    alert("hemmm");
-    this.y2 = '200';
-    this.x2 = '150';
-
-
-  }*/
 }

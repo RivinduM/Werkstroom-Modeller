@@ -1,3 +1,19 @@
-.profile{
+.profile {
   color: #010840;
+}
+
+table, td, th {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+th {
+  color: #8ec0a1;
+}
+
+.button {
+  cursor: pointer;
 }

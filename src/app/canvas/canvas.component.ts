@@ -1,12 +1,6 @@
 import {
-  ApplicationRef,
-  Component,
-  ComponentFactoryResolver,
-  EmbeddedViewRef,
-  Injector,
-  NgModule,
-  OnInit,
-  AfterViewInit
+  AfterViewInit, ApplicationRef, Component, ComponentFactoryResolver, EmbeddedViewRef, Injector, NgModule,
+  OnInit
 } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {InputBoxComponent} from '../input-box/input-box.component';
@@ -18,6 +12,7 @@ import {LineComponent} from '../line/line.component';
 import {AuthService} from '../services/auth.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
+import {NavbarComponent} from '../navbar/navbar.component';
 
 @NgModule({
   imports: [NgbModule]
@@ -32,7 +27,6 @@ import {Router} from '@angular/router';
 export class CanvasComponent implements OnInit, AfterViewInit {
   compList: any[] = this.globals.compList;
   connectors = this.globals.connectors;
-  // user: Object;
   userId: string;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
@@ -41,8 +35,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
               private globals: Globals,
               private authService: AuthService,
               private flashMessage: FlashMessagesService,
-              private router: Router
-              ) {
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -52,7 +45,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.userId = profile.user._id;
       },
       err => {
-        // console.log(err);
         return false;
       });
 
@@ -70,7 +62,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         let error = false;
 
         const conNum = this.connectors.length;
-        // console.log(this.connectors);
         for (let i = 0; i < conNum; i++) {
           const conn = this.connectors[i];
           try {
@@ -102,10 +93,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
         this.appRef.attachView(componentRef.hostView);
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-        // console.log('------------------ ' + componentRef.instance.cid);
         this.insertComponent(domElem, comp.x, comp.y);
-        /*const comp = {name: 'Box', x: ev.screenX, y: ev.screenY};
-        this.globals.list.push(comp);*/
         break;
       }
       case 'Circle': {
@@ -119,8 +107,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.appRef.attachView(componentRef.hostView);
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
         this.insertComponent(domElem, comp.x, comp.y);
-        /*const comp = {name: 'Circle', x: ev.screenX, y: ev.screenY};
-        this.globals.list.push(comp);*/
         break;
       }
     }
@@ -133,10 +119,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
    * @param y - y coordinate of position
    */
   insertComponent(domElem, x, y) {
-    /*console.log(domElem);*/
-    /*const componentRef = this.componentFactoryResolver.resolveComponentFactory(component).create(this.injector);
-    this.appRef.attachView(componentRef.hostView);
-    const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;*/
     domElem.style.position = 'absolute';
     const scroll = this.getScroll();
     const workspaceX = document.getElementById('workspace').getBoundingClientRect().left;
@@ -171,7 +153,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
    * @param ev
    */
   drop(ev) {
-    /*alert(document.getElementById('workspace').scrollTop + ' , ' +  document.getElementById('canvas').scrollHeight )*/
     ev.preventDefault();
     const data = ev.dataTransfer.getData('text');
     const id = uuid();
@@ -184,8 +165,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.appRef.attachView(componentRef.hostView);
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
         this.insertComponent(domElem, ev.screenX, ev.screenY);
-        /*const comp = {name: 'Box', x: ev.screenX, y: ev.screenY};
-        this.globals.list.push(comp);*/
         break;
       }
       case 'circleModal': {
@@ -196,8 +175,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.appRef.attachView(componentRef.hostView);
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
         this.insertComponent(domElem, ev.screenX, ev.screenY);
-        /*const comp = {name: 'Circle', x: ev.screenX, y: ev.screenY};
-        this.globals.list.push(comp);*/
         break;
       }
     }
@@ -230,11 +207,19 @@ export class CanvasComponent implements OnInit, AfterViewInit {
    * @desc update compoent array details
    */
   updateList() {
+    this.globals.yScroll = (document.getElementById('workspace').scrollTop);
+    this.globals.xScroll = (document.getElementById('workspace').scrollLeft);
+    console.log(this.globals.xScroll, this.globals.yScroll);
     for (const comp of this.compList) {
       if (document.getElementById(comp.id)) {
         const component = document.getElementById(comp.id);
-        comp.x = component.getBoundingClientRect().left;
-        comp.y = component.getBoundingClientRect().top + 65;
+        if (comp.type === 'Circle') {
+          comp.x = component.getBoundingClientRect().left + this.globals.xScroll + 40;
+          comp.y = component.getBoundingClientRect().top + 65 + this.globals.yScroll - 179 + 40;
+        } else {
+          comp.x = component.getBoundingClientRect().left + this.globals.xScroll;
+          comp.y = component.getBoundingClientRect().top + 65 + this.globals.yScroll - 179;
+        }
         comp.height = component.getBoundingClientRect().height;
         comp.width = component.getBoundingClientRect().width;
         comp.z = component.style.zIndex;
@@ -253,18 +238,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     return [x, y];
   }
 
-  /*//////////////////////no need*/
-  showPos(ev) {
-    alert(ev.screenX + ' ' + ev.screenY);
-
-    /*alert(document.getElementById('canvas').scrollLeft);
-*/
-    /*alert(document.getElementById('canvas').scrollWidth)
-    alert(document.getElementById('canvas').scrollLeft)
-    */
-  }
-
-
   /**
    * @desc drawing line & updating lists
    * @param prevNode
@@ -273,19 +246,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
    * @param id
    */
   drawLine(prevNode, curNode, newConnection, id) {
-    // console.log(prevNode);
-    // console.log(curNode);
-
-
     let leftNode: string;
     let rightNode: string;
     const lineId = id;
     if (curNode !== prevNode) {
       // setting left and right nodes
-      /*const prevNodeLeft = this.compList.find(i => i.id = prevNode);
-      const curNodeLeft = this.compList.find(i => i.id = curNode);*/
-
-      /*if (prevNodeLeft.x < curNodeLeft.x) {*/
       if (document.getElementById(prevNode).getBoundingClientRect().left < document.getElementById(curNode).getBoundingClientRect().left) {
         leftNode = prevNode;
         rightNode = curNode;
@@ -301,17 +266,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       this.appRef.attachView(componentRef.hostView);
       const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
 
-
       const leftNodeElm = this.compList.find(i => i.id === leftNode);
       const rightNodeElm = this.compList.find(i => i.id === rightNode);
-      // console.log('pre 1,2 ');
-      // console.log(leftNode);
-      // console.log(rightNode);
-
-      // console.log(leftNodeElm.id);
-      // console.log(rightNodeElm.id);
-      // console.dir(rightNodeElm);
-      // console.dir(leftNodeElm);
       const lineLeftX = leftNodeElm.x + (leftNodeElm.width / 2);
       const lineLeftY = /*leftNodeElm.y + leftNodeElm.height; */document.getElementById(leftNode).getBoundingClientRect().bottom - leftNodeElm.height / 2;
       const lineRightX = rightNodeElm.x + (rightNodeElm.width / 2);
@@ -360,7 +316,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }
   }
 
-
+  /**
+   * save workflow
+   * @returns {Promise<void>}
+   */
   async save() {
     if (this.authService.loggedIn()) {
       const workflowName = (this.globals.workflowName === undefined) ? 'untitled workflow' : this.globals.workflowName;
@@ -378,6 +337,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
       if (name) {
         this.globals.workflowName = name;
+        NavbarComponent.workflowName = name;
         swal({type: 'success', title: 'Done'});
       }
 
@@ -389,23 +349,78 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         savedDate: new Date().toISOString().split('T')[0]
       };
 
-      // console.log(workflow);
-      this.authService.saveWorkflow(workflow).subscribe(data =>{
-        // console.log('inside canvas save authservice.saveWorkflow');
-        if (data.success){
-          this.flashMessage.show('Workflow saved', {cssClass: 'alert-success', timeout: 3000});
-        }
-        else {
-          this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+
+      this.authService.checkWorkflow(workflow.user_id, workflow.name).subscribe(data => {
+        console.log('check : ' + data.success);
+        if (data.success) {
+          this.authService.saveWorkflow(workflow).subscribe(dat => {
+            if (dat.success) {
+              this.flashMessage.show('Workflow saved', {cssClass: 'alert-success', timeout: 3000});
+            } else {
+              this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+            }
+          });
+        } else {
+          swal({
+            title: 'Workflow name ' + workflow.name + ' already exists',
+            text: 'Please retry with a different name',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Retry'
+          }).then((result) => {
+            if (result.value) {
+              this.save();
+            }
+          });
         }
       });
+
     } else {
       this.flashMessage.show('Login to save workflow', {
         cssClass: 'alert-danger', timeout: 3000
       });
       this.router.navigate(['/login']);
     }
-    /**/
+  }
+
+  /**
+   * load a blank workspace
+   */
+  newWorkspace() {
+    swal({
+      title: 'New blank workspace?',
+      text: 'All unsaved changess will be lost!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirm'
+    }).then((result) => {
+
+      this.globals.workflowName = '';
+      this.globals.connectors = [];
+      this.globals.compList = [];
+      swal({
+        title: 'Loading!',
+        text: 'Please wait',
+        timer: 1000,
+        onOpen: () => {
+          swal.showLoading();
+        }
+      }).then((res) => {
+        if (
+          // Read more about handling dismissals
+        res.dismiss === swal.DismissReason.timer
+        ) {
+          this.router.navigate(['/profile']).then((reslt) => {
+            NavbarComponent.workflowName = 'untitled workflow';
+            this.router.navigate(['/']);
+          });
+        }
+      });
+
+    });
   }
 }
 
