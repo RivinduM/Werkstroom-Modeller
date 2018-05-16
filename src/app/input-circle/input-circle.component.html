@@ -24,12 +24,12 @@
     </span>
   </span>
 
-  <div class="circle" >
-    <div class="circleHeader" (mouseenter)="bringToFront()" (mouseleave)="sendToBack()" (click)="pos()">{{title}}
+  <div class="circle">
+    <div class="circleHeader" (mouseenter)="bringToFront()" (mouseleave)="sendToBack()" >{{title}}
 
 
     </div>
-    <div class="circleBody" (mouseenter)="bringToFront()" (mouseleave)="sendToBack()" >
+    <div class="circleBody" (mouseenter)="bringToFront()" (mouseleave)="sendToBack()">
       {{body}}
     </div>
   </div>

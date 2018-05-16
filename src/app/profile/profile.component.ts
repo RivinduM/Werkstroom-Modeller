@@ -3,7 +3,6 @@ import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import swal from 'sweetalert2';
 import {Globals} from '../globals';
-import {FlashMessagesService} from 'angular2-flash-messages';
 import {NavbarComponent} from '../navbar/navbar.component';
 
 @Component({
@@ -23,7 +22,7 @@ export class ProfileComponent implements OnInit {
   constructor(private authService: AuthService,
               private router: Router,
               private globals: Globals,
-              private flashMessage: FlashMessagesService) {
+             ) {
   }
 
   ngOnInit() {
@@ -52,6 +51,10 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  /**
+   * @desc load workflow
+   * @param workflow
+   */
   open(workflow) {
     swal({
       title: 'Are you sure?',
@@ -86,6 +89,10 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * @desc delete workflow
+   * @param workflow
+   */
   delete(workflow) {
     swal({
       title: 'Are you sure?',

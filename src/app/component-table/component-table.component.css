@@ -1,25 +1,3 @@
-/*.table, th , td  {
-  border: 1px solid grey;
-  border-collapse: collapse;
-  padding: 5px;
-  text-align: center;
-}
-!*.table tr:nth-child(odd) {
-  background-color: #f1f1f1;
-}
-.table tr:nth-child(even) {
-  background-color: #ffffff;
-}*!
-.componentsTable{
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-
-}
-
-.table tr{
-  background-color: #3c3c3c;
-}*/
 .components {
   background-color: #3c3c3c;
   margin-top: 30px;
@@ -71,7 +49,6 @@
   color: black;
 }
 
-
-.componentPage{
+.componentPage {
   background-color: #85b909;
 }

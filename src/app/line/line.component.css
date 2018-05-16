@@ -1,10 +1,6 @@
 .line{
-  /*width: 100px;*/
   height: 4px;
-  /*top: 100px;
-  left: 50px;*/
   rotation-point: center;
-  /*transform: rotate(5deg);*/
   border: solid thin #1c0b6e;
   position: absolute;
   background-color: #1c0b6e;

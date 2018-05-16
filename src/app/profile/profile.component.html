@@ -1,16 +1,3 @@
-<!--<div *ngIf="user" class="profile">
-  <h2 class="page-header">{{name}}</h2>
-  <ul class="list-group">
-    <li class="list-group-item">Username: {{username}}</li>
-    <li class="list-group-item">Email: {{email}}</li>
-  </ul>
-  <br>
-  &lt;!&ndash;<ul class="list-group">
-    <li class="list-group-item" *ngFor="let item of workflows">
-      {{item.savedDate.substring(0,10)}} {{item.name}} <button class="btn btn-primary" (click)="open(item)">Open</button>
-    </li>
-  </ul>&ndash;&gt;
-</div>-->
 <table class="table table-bordered">
   <thead>
   <tr>
@@ -19,7 +6,7 @@
     <th>Action</th>
   </tr>
   </thead>
-  <tbody >
+  <tbody>
   <tr *ngFor="let item of workflows">
     <td>{{item.savedDate.substring(0,10)}}</td>
     <td>{{item.name}}</td>
@@ -30,4 +17,4 @@
   </tr>
   </tbody>
 </table>
-<label *ngIf="!display" >No saved workflows</label>
+<label *ngIf="!display">No saved workflows</label>

@@ -24,6 +24,10 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * @desc submit sign up form
+   * @returns {boolean}
+   */
   onSignupSubmit() {
     const user = {
       name: this.name,
@@ -45,8 +49,7 @@ export class SignupComponent implements OnInit {
       if (data.success) {
         this.flashMessage.show('Successfully signed up', {cssClass: 'alert-success', timeout: 3000});
         this.router.navigate(['/login']);
-      }
-      else {
+      } else {
         this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
         this.router.navigate(['/signup']);
       }

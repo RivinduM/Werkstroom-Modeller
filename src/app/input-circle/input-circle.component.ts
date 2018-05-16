@@ -161,19 +161,13 @@ export class InputCircleComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         document.getElementById(this.cid).remove();
-        // console.log('---------------------------------------------------------');
-        // console.log('removed ' + this.cid);
         const component = this.compList.find(i => i.id === this.cid);
-        // console.log('affected nodes = ' + component.neighbors);
         for (const neighbor of component.neighbors) {
           const neighborEle = this.compList.find(i => i.id === neighbor).neighbors;
           const nIndex = neighborEle.indexOf(this.cid);
           neighborEle.splice(nIndex, 1);
-          // console.log(neighbor +  ' ---> ' + neighborEle);
         }
 
-
-        // console.log('lines to remove = ' + component.connectors);
         for (const line of component.connectors) {
           console.log('line *** ' + line);
           for (let i = 0; i < this.connectors.length; i++) {
@@ -181,13 +175,10 @@ export class InputCircleComponent implements OnInit {
 
               const node1 = (this.connectors[i].node1 === this.cid) ? this.connectors[i].node2 : this.connectors[i].node1;
               const n1Connectors = this.compList.find(j => j.id === node1).connectors;
-              // console.log('neighbor ' + node1 + ' connectors before  = ' + n1Connectors);
-              // const n1Line = n1Connectors.find(j => j.id === line);
               const n1LineIndex = n1Connectors.indexOf(line);
               if (n1LineIndex !== -1) {
                 n1Connectors.splice(n1LineIndex, 1);
               }
-              // console.log('neighbor ' + node1 + ' connectors after  = ' + n1Connectors);
               this.connectors.splice(i, 1);
               document.getElementById(line).remove();
               i--;
@@ -264,9 +255,6 @@ export class InputCircleComponent implements OnInit {
    * @param ev
    */
   drawLine(prevNode, curNode, newConnection, id) {
-    /*ev.preventDefault();
-    const prevNode = ev.dataTransfer.getData('text');
-    const curNode = this.cid;*/
     let leftNode: string;
     let rightNode: string;
     const lineId = id;
@@ -282,7 +270,6 @@ export class InputCircleComponent implements OnInit {
 
       // generating line
       const componentRef = this.componentFactoryResolver.resolveComponentFactory(LineComponent).create(this.injector);
-      /*const lineId = componentRef.instance.cid;*/
       componentRef.instance.cid = lineId;
       this.appRef.attachView(componentRef.hostView);
       const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
@@ -308,8 +295,16 @@ export class InputCircleComponent implements OnInit {
       const scroll = this.getScroll();
       const workspaceX = document.getElementById('workspace').getBoundingClientRect().left;
       const workspaceY = document.getElementById('workspace').getBoundingClientRect().top;
-      domElem.style.left = lineLeftX + scroll[0] - workspaceX - Math.abs(adjustment) + 'px';
-      domElem.style.top = lineLeftY + scroll[1] - workspaceY + adjustment + 'px';
+      if ((leftNodeElm.x - rightNodeElm.x) < 100) {
+        domElem.style.left = lineLeftX + scroll[0] - workspaceX - Math.abs(adjustment) + 50 + 'px';
+      } else {
+        domElem.style.left = lineLeftX + scroll[0] - workspaceX - Math.abs(adjustment) + 'px';
+      }
+      if (Math.abs(leftNodeElm.y - rightNodeElm.y) < 300) {
+        domElem.style.top = lineLeftY + scroll[1] - workspaceY + adjustment - 30 + 'px';
+      } else {
+        domElem.style.top = lineLeftY + scroll[1] - workspaceY + adjustment + 'px';
+      }
 
       // adding to canvas, set width and transformation
       const canvas = document.getElementById('canvas');
@@ -325,8 +320,7 @@ export class InputCircleComponent implements OnInit {
       // adding connector to components in the list
       const leftEle = this.compList.find(i => i.id === leftNode);
       const rightEle = this.compList.find(i => i.id === rightNode);
-      /*leftEle.connectors.push(lineId);
-      rightEle.connectors.push(lineId);*/
+
       if (newConnection) {
         leftEle.connectors.push(lineId);
         rightEle.connectors.push(lineId);
@@ -364,16 +358,6 @@ export class InputCircleComponent implements OnInit {
     const coordinates = [x, y];
     /*document.getElementById ('demo').innerHTML = 'Horizontally: ' + x + 'px<br>Vertically: ' + y + 'px';*/
     return coordinates;
-  }
-
-  show() {
-    alert('see console');
-    console.log(document.getElementById(this.cid).style);
-  }
-
-
-  pos(){
-    console.log( document.getElementById(this.cid).getBoundingClientRect().left,  document.getElementById(this.cid).getBoundingClientRect().top)
   }
 }
 

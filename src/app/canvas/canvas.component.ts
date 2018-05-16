@@ -1,12 +1,6 @@
 import {
-  ApplicationRef,
-  Component,
-  ComponentFactoryResolver,
-  EmbeddedViewRef,
-  Injector,
-  NgModule,
-  OnInit,
-  AfterViewInit
+  AfterViewInit, ApplicationRef, Component, ComponentFactoryResolver, EmbeddedViewRef, Injector, NgModule,
+  OnInit
 } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {InputBoxComponent} from '../input-box/input-box.component';
@@ -33,7 +27,6 @@ import {NavbarComponent} from '../navbar/navbar.component';
 export class CanvasComponent implements OnInit, AfterViewInit {
   compList: any[] = this.globals.compList;
   connectors = this.globals.connectors;
-  // user: Object;
   userId: string;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
@@ -52,7 +45,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.userId = profile.user._id;
       },
       err => {
-        // console.log(err);
         return false;
       });
 
@@ -70,7 +62,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         let error = false;
 
         const conNum = this.connectors.length;
-        // console.log(this.connectors);
         for (let i = 0; i < conNum; i++) {
           const conn = this.connectors[i];
           try {
@@ -102,10 +93,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
         this.appRef.attachView(componentRef.hostView);
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-        // console.log('------------------ ' + componentRef.instance.cid);
         this.insertComponent(domElem, comp.x, comp.y);
-        /*const comp = {name: 'Box', x: ev.screenX, y: ev.screenY};
-        this.globals.list.push(comp);*/
         break;
       }
       case 'Circle': {
@@ -119,8 +107,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.appRef.attachView(componentRef.hostView);
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
         this.insertComponent(domElem, comp.x, comp.y);
-        /*const comp = {name: 'Circle', x: ev.screenX, y: ev.screenY};
-        this.globals.list.push(comp);*/
         break;
       }
     }
@@ -133,10 +119,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
    * @param y - y coordinate of position
    */
   insertComponent(domElem, x, y) {
-    /*console.log(domElem);*/
-    /*const componentRef = this.componentFactoryResolver.resolveComponentFactory(component).create(this.injector);
-    this.appRef.attachView(componentRef.hostView);
-    const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;*/
     domElem.style.position = 'absolute';
     const scroll = this.getScroll();
     const workspaceX = document.getElementById('workspace').getBoundingClientRect().left;
@@ -171,7 +153,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
    * @param ev
    */
   drop(ev) {
-    /*alert(document.getElementById('workspace').scrollTop + ' , ' +  document.getElementById('canvas').scrollHeight )*/
     ev.preventDefault();
     const data = ev.dataTransfer.getData('text');
     const id = uuid();
@@ -184,8 +165,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.appRef.attachView(componentRef.hostView);
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
         this.insertComponent(domElem, ev.screenX, ev.screenY);
-        /*const comp = {name: 'Box', x: ev.screenX, y: ev.screenY};
-        this.globals.list.push(comp);*/
         break;
       }
       case 'circleModal': {
@@ -196,8 +175,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.appRef.attachView(componentRef.hostView);
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
         this.insertComponent(domElem, ev.screenX, ev.screenY);
-        /*const comp = {name: 'Circle', x: ev.screenX, y: ev.screenY};
-        this.globals.list.push(comp);*/
         break;
       }
     }
@@ -261,18 +238,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     return [x, y];
   }
 
-  /*//////////////////////no need*/
-  showPos(ev) {
-    alert(ev.screenX + ' ' + ev.screenY);
-
-    /*alert(document.getElementById('canvas').scrollLeft);
-*/
-    /*alert(document.getElementById('canvas').scrollWidth)
-    alert(document.getElementById('canvas').scrollLeft)
-    */
-  }
-
-
   /**
    * @desc drawing line & updating lists
    * @param prevNode
@@ -281,19 +246,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
    * @param id
    */
   drawLine(prevNode, curNode, newConnection, id) {
-    // console.log(prevNode);
-    // console.log(curNode);
-
-
     let leftNode: string;
     let rightNode: string;
     const lineId = id;
     if (curNode !== prevNode) {
       // setting left and right nodes
-      /*const prevNodeLeft = this.compList.find(i => i.id = prevNode);
-      const curNodeLeft = this.compList.find(i => i.id = curNode);*/
-
-      /*if (prevNodeLeft.x < curNodeLeft.x) {*/
       if (document.getElementById(prevNode).getBoundingClientRect().left < document.getElementById(curNode).getBoundingClientRect().left) {
         leftNode = prevNode;
         rightNode = curNode;
@@ -309,17 +266,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       this.appRef.attachView(componentRef.hostView);
       const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
 
-
       const leftNodeElm = this.compList.find(i => i.id === leftNode);
       const rightNodeElm = this.compList.find(i => i.id === rightNode);
-      // console.log('pre 1,2 ');
-      // console.log(leftNode);
-      // console.log(rightNode);
-
-      // console.log(leftNodeElm.id);
-      // console.log(rightNodeElm.id);
-      // console.dir(rightNodeElm);
-      // console.dir(leftNodeElm);
       const lineLeftX = leftNodeElm.x + (leftNodeElm.width / 2);
       const lineLeftY = /*leftNodeElm.y + leftNodeElm.height; */document.getElementById(leftNode).getBoundingClientRect().bottom - leftNodeElm.height / 2;
       const lineRightX = rightNodeElm.x + (rightNodeElm.width / 2);
@@ -368,7 +316,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }
   }
 
-
+  /**
+   * save workflow
+   * @returns {Promise<void>}
+   */
   async save() {
     if (this.authService.loggedIn()) {
       const workflowName = (this.globals.workflowName === undefined) ? 'untitled workflow' : this.globals.workflowName;
@@ -403,7 +354,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         console.log('check : ' + data.success);
         if (data.success) {
           this.authService.saveWorkflow(workflow).subscribe(dat => {
-            // console.log('inside canvas save authservice.saveWorkflow');
             if (dat.success) {
               this.flashMessage.show('Workflow saved', {cssClass: 'alert-success', timeout: 3000});
             } else {
@@ -423,22 +373,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
               this.save();
             }
           });
-          /*swal({
-            title: 'Workflow name already exists',
-            text: 'Are you sure you want to replace ' + workflow.name,
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, overwrite it!'
-          }).then((result) => {
-            if (result.value) {
-              this.authService.updateWorkflow(workflow.user_id, workflow);
-            }
-          });*/
         }
       });
-      // console.log(workflow);
 
     } else {
       this.flashMessage.show('Login to save workflow', {
@@ -446,9 +382,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       });
       this.router.navigate(['/login']);
     }
-    /**/
   }
 
+  /**
+   * load a blank workspace
+   */
   newWorkspace() {
     swal({
       title: 'New blank workspace?',

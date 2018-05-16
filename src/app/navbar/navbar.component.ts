@@ -15,12 +15,11 @@ export class NavbarComponent implements OnInit {
   static username: string;
   static workflowName: string;
 
-  constructor(
-    protected authService: AuthService,
-    private router: Router,
-    private flashMessage: FlashMessagesService,
-    private globals: Globals
-  ) { }
+  constructor(protected authService: AuthService,
+              private router: Router,
+              private flashMessage: FlashMessagesService,
+              private globals: Globals) {
+  }
 
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
@@ -33,15 +32,27 @@ export class NavbarComponent implements OnInit {
     NavbarComponent.workflowName = (this.globals.workflowName === undefined) ? 'untitled workflow' : this.globals.workflowName;
   }
 
-  get staticUsername(){
+  /**
+   * @desc get current user's username
+   * @returns {string}
+   */
+  get staticUsername() {
     return NavbarComponent.username;
   }
 
-  get staticWorkflowname(){
+  /**
+   * @desc get current workflow name
+   * @returns {string}
+   */
+  get staticWorkflowname() {
     return NavbarComponent.workflowName;
   }
 
-  onLogoutClick(){
+  /**
+   * @desc logging out
+   * @returns {boolean}
+   */
+  onLogoutClick() {
     this.authService.logout();
     this.flashMessage.show('You are logged out', {
       cssClass: 'alert-success', timeout: 3000
@@ -50,9 +61,11 @@ export class NavbarComponent implements OnInit {
     return false;
   }
 
-
-
-  async changeName(){
+  /**
+   * @desc change workflow name
+   * @returns {Promise<void>}
+   */
+  async changeName() {
     const {value: name} = await swal({
       title: 'Enter workflow name',
       input: 'text',
