@@ -2296,24 +2296,26 @@ var ProfileComponent = /** @class */ (function () {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, open it!'
         }).then(function (result) {
-            _this.globals.workflowName = workflow.name;
-            _this.globals.connectors = workflow.connArray;
-            _this.globals.compList = workflow.compArray;
-            __WEBPACK_IMPORTED_MODULE_5__navbar_navbar_component__["a" /* NavbarComponent */].workflowName = workflow.name;
-            __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()({
-                title: 'Loading!',
-                text: 'Please wait',
-                timer: 1000,
-                onOpen: function () {
-                    __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.showLoading();
-                }
-            }).then(function (res) {
-                if (
-                // Read more about handling dismissals
-                res.dismiss === __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.DismissReason.timer) {
-                    _this.router.navigate(['/']);
-                }
-            });
+            if (result) {
+                _this.globals.workflowName = workflow.name;
+                _this.globals.connectors = workflow.connArray;
+                _this.globals.compList = workflow.compArray;
+                __WEBPACK_IMPORTED_MODULE_5__navbar_navbar_component__["a" /* NavbarComponent */].workflowName = workflow.name;
+                __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()({
+                    title: 'Loading!',
+                    text: 'Please wait',
+                    timer: 1000,
+                    onOpen: function () {
+                        __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.showLoading();
+                    }
+                }).then(function (res) {
+                    if (
+                    // Read more about handling dismissals
+                    res.dismiss === __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.DismissReason.timer) {
+                        _this.router.navigate(['/']);
+                    }
+                });
+            }
         });
     };
     /**

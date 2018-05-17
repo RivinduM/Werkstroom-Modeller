@@ -21,8 +21,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private globals: Globals,
-             ) {
+              private globals: Globals,) {
   }
 
   ngOnInit() {
@@ -65,27 +64,27 @@ export class ProfileComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, open it!'
     }).then((result) => {
-
-      this.globals.workflowName = workflow.name;
-      this.globals.connectors = workflow.connArray;
-      this.globals.compList = workflow.compArray;
-      NavbarComponent.workflowName = workflow.name;
-      swal({
-        title: 'Loading!',
-        text: 'Please wait',
-        timer: 1000,
-        onOpen: () => {
-          swal.showLoading();
-        }
-      }).then((res) => {
-        if (
-          // Read more about handling dismissals
-        res.dismiss === swal.DismissReason.timer
-        ) {
-          this.router.navigate(['/']);
-        }
-      });
-
+      if (result) {
+        this.globals.workflowName = workflow.name;
+        this.globals.connectors = workflow.connArray;
+        this.globals.compList = workflow.compArray;
+        NavbarComponent.workflowName = workflow.name;
+        swal({
+          title: 'Loading!',
+          text: 'Please wait',
+          timer: 1000,
+          onOpen: () => {
+            swal.showLoading();
+          }
+        }).then((res) => {
+          if (
+            // Read more about handling dismissals
+          res.dismiss === swal.DismissReason.timer
+          ) {
+            this.router.navigate(['/']);
+          }
+        });
+      }
     });
   }
 
