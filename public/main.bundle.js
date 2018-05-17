@@ -2296,7 +2296,7 @@ var ProfileComponent = /** @class */ (function () {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, open it!'
         }).then(function (result) {
-            if (result) {
+            if (result.value) {
                 _this.globals.workflowName = workflow.name;
                 _this.globals.connectors = workflow.connArray;
                 _this.globals.compList = workflow.compArray;

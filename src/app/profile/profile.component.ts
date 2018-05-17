@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, open it!'
     }).then((result) => {
-      if (result) {
+      if (result.value) {
         this.globals.workflowName = workflow.name;
         this.globals.connectors = workflow.connArray;
         this.globals.compList = workflow.compArray;
